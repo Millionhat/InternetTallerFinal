@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Update Document</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+	<div class="container my-5">
+		<h2 class="mb-5">Update Document</h2>
+		<div class="row">
+			<div class="col-md-5">
+				<form action="#" th:object="${documentt}"
+					th:action="@{/docs/edit/{id}(id=${documentt.docId})}" method="post">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="docName" class="col-form-label">Document Name</label>
+							<input type="text" th:field="*{docName}"
+								class="form-control" id="docName"
+								placeholder="Document ID"> <span
+								th:if="${#fields.hasErrors('docName')}"
+								th:errors="*{docName}" class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="documenttype" class="col-form-label">Document Type</label> <select
+								th:field="*{documenttype}">
+								<option th:each="dt : ${types}" th:value="${dt.doctypeId}"
+									class="form-control" th:text="${dt.doctypeName}"
+									th:selected="${documentt.documenttype=dt}"></option>
+							</select> <span th:if="${#fields.hasErrors('documenttype')}"
+								th:errors="*{documenttype}" class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="person" class="col-form-label">Person</label> <select
+								th:field="*{person}">
+								<option th:each="per : ${people}" th:value="${per.persId}"
+									class="form-control" th:text="${per.persIddocument}"
+									th:selected="${documentt.person=per}"></option>
+							</select> <span th:if="${#fields.hasErrors('person')}"
+								th:errors="*{person}" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 mt-3">
+							<input type="submit" name="action" class="btn btn-primary"
+								value="Update Document">
+						</div>
+						<div class="col-md-3 mt-3">
+							<input type="submit" name="action" class="btn btn-secondary"
+								value="Cancel">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

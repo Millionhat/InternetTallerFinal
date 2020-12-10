@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Consult Document</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+	<div class="container my-5">
+		<h2 class="mb-5">Consult Document</h2>
+		<div class="row">
+			<div class="col-md-5">
+				<form action="#" th:object="${doc}"
+					th:action="@{/docs/edit/{id}(id=${doc.docId})}" method="post">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="docName" class="col-form-label">Document Name</label>
+							<input type="text" th:field="*{docName}" class="form-control"
+								id="docName" placeholder="Document ID" disabled> <span
+								th:if="${#fields.hasErrors('docName')}" th:errors="*{docName}"
+								class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-8">
+							<label for="documenttype" class="col-form-label">Document
+								Type</label> <select th:field="*{documenttype}" disabled>
+								<option th:each="dt : ${types}" th:value="${dt.doctypeId}"
+									class="form-control" th:text="${dt.doctypeName}"
+									th:selected="${doc.documenttype=dt}"></option>
+							</select> <span th:if="${#fields.hasErrors('documenttype')}"
+								th:errors="*{documenttype}" class="text-danger"></span>
+							<a th:href="@{/docType/view/{id}(id=${doc.documenttype.doctypeId})}"
+									class="btn btn-primary"><i class="fas fa-eye ml-2"></i></a>
+						</div>
+						<div class="form-group col-md-8">
+							<label for="person" class="col-form-label">Person</label> <select
+								th:field="*{person}" disabled>
+								<option th:each="per : ${people}" th:value="${per.persId}"
+									class="form-control" th:text="${per.persIddocument}"
+									th:selected="${doc.person=per}"></option>
+							</select> <span th:if="${#fields.hasErrors('person')}"
+								th:errors="*{person}" class="text-danger"></span>
+								<a th:href="@{/person/view/{id}(id=${doc.person.persId})}"
+									class="btn btn-primary"><i class="fas fa-eye ml-2"></i></a>
+						</div>
+						<div class="form-group col-md-6">
+							<h3 class="my-5">Document Instances</h3>
+							<table class="table table-striped table-responsive-md">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Fecha inicio</th>
+										<th>Fecha Final</th>
+										<th>View Info</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="instance : ${instances}">
+										<td class="text-info" th:text="${instance.docstatinsId}"></td>
+										<td class="text-info"
+											th:text="${instance.docstatinsStartdate}"></td>
+										<td class="text-info" th:text="${instance.docstatinsEnddate}"></td>
+										<td><a
+											th:href="@{/docinst/view/{id}(id=${instance.docstatinsId})}"
+											class="btn btn-primary"><i class="fas fa-eye ml-2"></i></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 mt-3">
+							<a href="/docs/"><i class="fas fa-calendar ml-2"></i>
+								Retornar</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
