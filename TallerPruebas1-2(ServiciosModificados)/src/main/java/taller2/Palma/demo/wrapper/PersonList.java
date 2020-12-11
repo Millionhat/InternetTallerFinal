@@ -9,7 +9,7 @@ public class PersonList {
 	
 	private List<Person> person;
 	
-	public void PersonList() {
+	public PersonList() {
 		person= new ArrayList();
 	}
 	
