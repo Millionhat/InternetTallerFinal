@@ -23,7 +23,6 @@ public class PersonDelegate {
 	public Iterable<Person> getGroupDocTypeData(){
 		
 		
-		//falta la URL 
 		String url="/RestPerson";
 		List<Person> person= new ArrayList();
 		
