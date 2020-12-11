@@ -9,7 +9,7 @@ public class DocTypeList {
 	
 	private List<Documenttype> types;
 	
-	public void DocTypeList() {
+	public DocTypeList() {
 		types= new ArrayList();
 	}
 	

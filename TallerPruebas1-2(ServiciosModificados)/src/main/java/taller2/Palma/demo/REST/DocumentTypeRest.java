@@ -26,13 +26,13 @@ public class DocumentTypeRest {
 	}
 	
 	@PostMapping("/")
-	public void createDocType(Documenttype dt) throws NonNullValueException {
+	public void createDocType(@RequestBody Documenttype dt) throws NonNullValueException {
 		serv.addDT(dt);
 	}
 	
 	
 	@DeleteMapping("/{doctypeId}")
-	public void deleteInstitution(@PathVariable long doctypeId) {
+	public void deleteDocType(@PathVariable long doctypeId) {
 		Optional<Documenttype> deleted=serv.getDocType(doctypeId);
 		if(!deleted.isEmpty()) {
 			serv.delete(doctypeId);
@@ -40,7 +40,7 @@ public class DocumentTypeRest {
 	}
 	
 	@PutMapping("/{doctypeId}")
-	public void editInstitution(@PathVariable long doctypeId,@RequestBody Documenttype documenttype) throws NonNullValueException {
+	public void editDocType(@PathVariable long doctypeId,@RequestBody Documenttype documenttype) throws NonNullValueException {
 		serv.update(documenttype);
 	}
 	
