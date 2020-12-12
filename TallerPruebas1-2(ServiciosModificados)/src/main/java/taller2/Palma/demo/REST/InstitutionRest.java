@@ -27,7 +27,7 @@ public class InstitutionRest {
 		service.addInstituion(ins);
 	}
 	
-	@DeleteMapping("{/insId}")
+	@DeleteMapping("/{insId}")
 	public void deleteInstitution(@PathVariable long insId) {
 		Optional<Institution> deleted= service.getInstitution(insId);
 		if(!deleted.isEmpty()) {
@@ -35,7 +35,7 @@ public class InstitutionRest {
 		}
 		
 	}
-	@GetMapping("{insId}")
+	@GetMapping("/{insId}")
 	public Institution getInstitution(@PathVariable long insId) {
 		return service.getInstitution(insId).get();
 	}
