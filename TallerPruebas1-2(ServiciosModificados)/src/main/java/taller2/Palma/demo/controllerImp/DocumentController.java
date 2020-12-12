@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import taller2.Palma.demo.delegate.DocStateInsDelegate;
+import taller2.Palma.demo.delegate.DocumentDelegate;
+import taller2.Palma.demo.delegate.DocumentTypeDelegate;
+import taller2.Palma.demo.delegate.PersonDelegate;
 import taller2.Palma.demo.exception.NonNullValueException;
 import taller2.Palma.demo.model.Documentt;
 import taller2.Palma.demo.model.Person;
@@ -26,12 +30,12 @@ import taller2.Palma.demo.service.PersonService;
 @Controller
 public class DocumentController {
 	
-	private DocumentService docs;
-	private PersonService per;
-	private DocumentTypeService dts;
-	private DocStateInstanceService dsi;
+	private DocumentDelegate docs;
+	private PersonDelegate per;
+	private DocumentTypeDelegate dts;
+	private DocStateInsDelegate dsi;
 	
-	public DocumentController(DocumentService doc,PersonService per,DocumentTypeService dts, DocStateInstanceService dsi) {
+	public DocumentController(DocumentDelegate doc,PersonDelegate per,DocumentTypeDelegate dts, DocStateInsDelegate dsi) {
 		docs=doc;
 		this.per=per;
 		this.dts=dts;
@@ -40,15 +44,15 @@ public class DocumentController {
 	
 	@GetMapping("/docs/")
 	public String indexPerson(Model model) {
-		model.addAttribute("documents",docs.getDocs());
+		model.addAttribute("documents",docs.getGroupDocuments());
 		return "document/index";
 	}
 	
 	@GetMapping("/docs/add")
 	public String addDoc(Model model) {
 		model.addAttribute("documentt",new Documentt());
-		model.addAttribute("people",per.getPeople());
-		model.addAttribute("types",dts.getDocTypes());
+		model.addAttribute("people",per.getGroupPersonData());
+		model.addAttribute("types",dts.getGroupDocTypeData());
 		return "document/addDoc";
 	}
 	
@@ -58,24 +62,24 @@ public class DocumentController {
 			Model model) {
 		if(!action.equals("Cancel")) {
 			if(bind.hasErrors()) {
-				model.addAttribute("people",per.getPeople());
-				model.addAttribute("types",dts.getDocTypes());
+				model.addAttribute("people",per.getGroupPersonData());
+				model.addAttribute("types",dts.getGroupDocTypeData());
 				return "document/addDoc";
 			}
-			docs.addDoc(documentt);
+			docs.createDocument(documentt);
 		}
 		return "redirect:/docs/";
 	}
 	
 	@GetMapping("/docs/edit/{id}")
 	public String editInfo(@PathVariable("id") long id, Model model) {
-		final Optional<Documentt> docu=docs.getDoc(id);
+		final Optional<Documentt> docu=Optional.of(docs.getDocument(id));
 		if(docu== null) {
 			throw new IllegalArgumentException("INVALID iD "+id);
 		}
 		model.addAttribute("documentt",docu.get());
-		model.addAttribute("people",per.getPeople());
-		model.addAttribute("types",dts.getDocTypes());
+		model.addAttribute("people",per.getGroupPersonData());
+		model.addAttribute("types",dts.getGroupDocTypeData());
 		return "document/editDoc";
 	}
 	
@@ -86,38 +90,38 @@ public class DocumentController {
 		if(action!=null && !action.equals("Cancel")) {
 			if(bind.hasErrors()) {
 				model.addAttribute("documentt",documentt);
-				model.addAttribute("people",per.getPeople());
-				model.addAttribute("types",dts.getDocTypes());
+				model.addAttribute("people",per.getGroupPersonData());
+				model.addAttribute("types",dts.getGroupDocTypeData());
 				return "document/editDoc";
 			}
 			documentt.setDocId(id);
-			docs.addDoc(documentt);
-			model.addAttribute("docs",docs.getDocs());
+			docs.updateDoc(id, documentt);
+			model.addAttribute("docs",docs.getGroupDocuments());
 		}
 		return "redirect:/docs/";
 	}
 	
 	@GetMapping("/docs/del/{id}")
 	public String deletePerson(@PathVariable("id") long id, Model model) {
-		final Optional<Documentt> docu=docs.getDoc(id);
+		final Optional<Documentt> docu=Optional.of(docs.getDocument(id));
 		if(docu==null) {
 			throw new IllegalArgumentException("Invalid Doc Type Id: "+id);
 		}
-		docs.delete(docu.get());
-		model.addAttribute("docs",docs.getDocs());
+		docs.deleteDoc(id);;
+		model.addAttribute("docs",docs.getGroupDocuments());
 		return "redirect:/docs/";
 	}
 	
 	@GetMapping("/docs/view/{id}")
 	public String comsultInfo(@PathVariable("id") long id, Model model) {
-		final Optional<Documentt> docu=docs.getDoc(id);
+		final Optional<Documentt> docu=Optional.of(docs.getDocument(id));
 		if(docu== null) {
 			throw new IllegalArgumentException("INVALID iD "+id);
 		}
 		model.addAttribute("doc",docu.get());
-		model.addAttribute("people",per.getPeople());
-		model.addAttribute("types",dts.getDocTypes());
-		model.addAttribute("instances",dsi.getInstancesForDoc(docu.get()));
+		model.addAttribute("people",per.getGroupPersonData());
+		model.addAttribute("types",dts.getGroupDocTypeData());
+		model.addAttribute("instances",dsi.getDSIDoc(docu.get()));
 		return "document/consultDoc";
 	}
 }

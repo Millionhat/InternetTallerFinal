@@ -12,15 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import taller2.Palma.demo.model.Documentt;
+import taller2.Palma.demo.model.Documenttype;
 import taller2.Palma.demo.service.DocumentService;
+import taller2.Palma.demo.service.DocumentTypeService;
+import taller2.Palma.demo.service.PersonService;
 
 @RestController
 @RequestMapping("/RestDocument")
 public class DocumentRest {
 	private DocumentService serv;
+	private DocumentTypeService dts;
+	private PersonService ps;
 	
-	public DocumentRest(DocumentService s) {
+	public DocumentRest(DocumentService s, DocumentTypeService d, PersonService pers) {
 		serv=s;
+		dts=d;
 	}
 	
 	@PostMapping("/")
@@ -49,5 +55,15 @@ public class DocumentRest {
 	@GetMapping("/")
 	public Iterable<Documentt> getDocs(){
 		return serv.getDocs();
+	}
+	
+	@GetMapping("/docType/{doctypeId}")
+	public Iterable<Documentt> getDocsByType(@PathVariable long doctypeId){	
+		return serv.findDocsByType(dts.getDocType(doctypeId).get());
+	}
+	
+	@GetMapping("/person/{persId}")
+	public Iterable<Documentt> getDocsByPerson(@PathVariable long persId){
+		return serv.findDocs(ps.getPerson(persId).get());
 	}
 }
