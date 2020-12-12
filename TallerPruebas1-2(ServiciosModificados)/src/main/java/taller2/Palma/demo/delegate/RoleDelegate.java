@@ -21,6 +21,14 @@ public class RoleDelegate {
 	@Autowired
 	RestTemplate template;
 	
+	public void createRole(Rolee role) {
+		HttpHeaders headers= new HttpHeaders();
+		HttpEntity<List<Rolee>> entity = new HttpEntity(role,headers);
+		
+		template.postForEntity(url, entity, Rolee.class);
+		
+	}
+	
 	public Iterable<Rolee> getGroupRoles(){
 		List<Rolee> roles= new ArrayList();
 		

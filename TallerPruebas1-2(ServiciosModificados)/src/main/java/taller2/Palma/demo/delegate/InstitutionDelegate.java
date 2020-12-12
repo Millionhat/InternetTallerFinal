@@ -22,6 +22,8 @@ public class InstitutionDelegate {
 		HttpHeaders headers= new HttpHeaders();
 		HttpEntity<Institution> entity = new HttpEntity(institution,headers);
 		
+		template.postForEntity(url, entity, Institution.class);
+		
 		
 	}
 	

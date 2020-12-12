@@ -19,6 +19,13 @@ public class UserDelegate {
 	private String url="/RestUser";
 	@Autowired
 	RestTemplate template;
+	
+	public void createUser(Userr user) {
+		HttpHeaders headers= new HttpHeaders();
+		HttpEntity<List<Userr>> entity = new HttpEntity(user,headers);
+		
+		template.postForEntity(url, entity, Userr.class);
+	}
 
 	public Iterable<Userr> getGroupUSer(){
 		List<Userr> users= new ArrayList();
