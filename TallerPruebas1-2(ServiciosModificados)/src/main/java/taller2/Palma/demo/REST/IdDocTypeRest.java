@@ -48,7 +48,7 @@ public class IdDocTypeRest {
 		return serv.getIDT(iddocumenttypeId).get();
 	}
 	
-	@GetMapping("/{iddocumenttypeId}")
+	@GetMapping("/")
 	public Iterable<Iddocumenttype> getTypes(){
 		return serv.getIDTS();
 	}
