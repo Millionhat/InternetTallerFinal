@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import taller2.Palma.demo.delegate.DocStateInsDelegate;
+import taller2.Palma.demo.delegate.PersonDelegate;
+import taller2.Palma.demo.delegate.DocumentDelegate;
 import taller2.Palma.demo.exception.NonValidDateException;
 import taller2.Palma.demo.model.Docstateinstance;
 import taller2.Palma.demo.model.Documenttype;
@@ -25,12 +28,12 @@ import taller2.Palma.demo.service.PersonService;
 @Controller
 public class DocStateInsController {
 	
-	private DocStateInstanceService dsi;
-	private PersonService per;
-	private DocumentService doc;
+	private DocStateInsDelegate dsi;
+	private PersonDelegate per;
+	private DocumentDelegate doc;
 	
 	@Autowired
-	public DocStateInsController(DocStateInstanceService dsi,PersonService per, DocumentService doc) {
+	public DocStateInsController(DocStateInsDelegate dsi,PersonDelegate per, DocumentDelegate doc) {
 		this.dsi=dsi;
 		this.per=per;
 		this.doc=doc;
@@ -38,15 +41,15 @@ public class DocStateInsController {
 	
 	@GetMapping("/docinst/")
 	public String indexDocIns(Model model) {
-		model.addAttribute("instances",dsi.getDocInstances());
+		model.addAttribute("instances",dsi.getDroupDSI());
 		return "docinstance/index";
 	}
 	
 	@GetMapping("/docinst/add")
 	public String addDocIns(Model model) {
 		model.addAttribute("docstateinstance",new Docstateinstance());
-		model.addAttribute("people",per.getPeople());
-		model.addAttribute("docs",doc.getDocs());
+		model.addAttribute("people",per.getGroupPersonData());
+		model.addAttribute("docs",doc.getGroupDocuments());
 		return "docinstance/addInsDoc";
 	}
 	
@@ -55,29 +58,29 @@ public class DocStateInsController {
 			BindingResult bind, Model model) {
 		if(!action.equals("Cancel")) {
 			if(bind.hasErrors()) {
-				model.addAttribute("people",per.getPeople());
-				model.addAttribute("docs",doc.getDocs());
+				model.addAttribute("people",per.getGroupPersonData());
+				model.addAttribute("docs",doc.getGroupDocuments());
 				return "docinstance/addInsDoc";
 			}
-			try {
-				dsi.addDTS(docstateinstance);
-			} catch (NonValidDateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+				dsi.createDSI(docstateinstance);
+//			} catch (NonValidDateException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 		return "redirect:/docinst/";
 	}
 	
 	@GetMapping("/docinst/edit/{id}")
 	public String editDocIns(@PathVariable("id")long id,Model model) {
-		final Optional<Docstateinstance> instance=dsi.getDocInstance(id);
+		final Optional<Docstateinstance> instance=Optional.of(dsi.getDSI(id));
 		if(instance==null) {
 			throw new IllegalArgumentException("Invalid Doc Instance Id: "+id);
 		}
 		model.addAttribute("docstateinstance",instance.get());
-		model.addAttribute("people",per.getPeople());
-		model.addAttribute("docs",doc.getDocs());
+		model.addAttribute("people",per.getGroupPersonData());
+		model.addAttribute("docs",doc.getGroupDocuments());
 		return "docinstance/editDocInstance";
 	}
 	
@@ -88,42 +91,42 @@ public class DocStateInsController {
 		if(action!=null&& !action.equals("Cancel")) {
 			if(bind.hasErrors()) {
 				model.addAttribute("docstateinstance",docstateinstance);
-				model.addAttribute("people",per.getPeople());
-				model.addAttribute("docs",doc.getDocs());
+				model.addAttribute("people",per.getGroupPersonData());
+				model.addAttribute("docs",doc.getGroupDocuments());
 				return "docinstance/editDocInstance";
 			}
-			try {
+//			try {
 				docstateinstance.setDocstatinsId(id);
-				dsi.addDTS(docstateinstance);
-			} catch (NonValidDateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				dsi.updateDSI(id, docstateinstance);
+//			} catch (NonValidDateException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 		return "redirect:/docinst/";
 	}
 	
 	@GetMapping("/docinst/del/{id}")
 	public String deleteDocInst(@PathVariable("id") long id, Model model) {
-		final Optional<Docstateinstance> docins=dsi.getDocInstance(id);
+		final Optional<Docstateinstance> docins=Optional.of(dsi.getDSI(id));
 		if(docins==null) {
 			throw new IllegalArgumentException("Invalid Doc Instance Id: "+id);
 		}
-		dsi.delete(docins.get());
-		model.addAttribute("instances",dsi.getDocInstances());
+		dsi.deleteDSI(docins.get().getDocstatinsId());
+		model.addAttribute("instances",dsi.getDroupDSI());
 		return "redirect:/docinst/";
 	}
 	
 	@GetMapping("/docinst/view/{id}")
 	public String consultDocIns(@PathVariable("id")long id,
 			Model model) {
-		final Optional<Docstateinstance> instance=dsi.getDocInstance(id);
+		final Optional<Docstateinstance> instance=Optional.of(dsi.getDSI(id));
 		if(instance==null) {
 			throw new IllegalArgumentException("Invalid Doc Instance Id: "+id);
 		}
 		model.addAttribute("docins",instance.get());
-		model.addAttribute("people",per.getPeople());
-		model.addAttribute("docs",doc.getDocs());
+		model.addAttribute("people",per.getGroupPersonData());
+		model.addAttribute("docs",doc.getGroupDocuments());
 		return "docinstance/consultDocIns";
 	}
 }

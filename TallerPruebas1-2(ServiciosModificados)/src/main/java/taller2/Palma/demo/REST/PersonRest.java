@@ -27,7 +27,7 @@ public class PersonRest {
 	}
 	
 	@PostMapping("/")
-	public void CreatePerson(Person dt)throws NonNullValueException {
+	public void createPerson(Person dt)throws NonNullValueException {
 		service.addPerson(dt);
 	}
 	

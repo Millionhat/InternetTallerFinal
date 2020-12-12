@@ -11,8 +11,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import taller2.Palma.demo.model.Docstateinstance;
+import taller2.Palma.demo.model.Documentt;
 import taller2.Palma.demo.model.Documenttype;
 import taller2.Palma.demo.wrapper.DSIList;
+import taller2.Palma.demo.wrapper.DocumenttList;
 
 @Component
 public class DocStateInsDelegate {
@@ -20,6 +22,12 @@ public class DocStateInsDelegate {
 	private String url="/RestDocStateIns";
 	@Autowired
 	RestTemplate template;
+	
+	public void createDSI(Docstateinstance dsi) {
+		HttpHeaders header= new HttpHeaders();
+		HttpEntity<Docstateinstance> entity= new HttpEntity(dsi,header);
+		template.postForEntity(url, entity, Docstateinstance.class);
+	}
 
 	public Iterable<Docstateinstance> getDroupDSI(){
 		List<Docstateinstance> instances= new ArrayList();
@@ -55,5 +63,18 @@ public class DocStateInsDelegate {
 		HttpEntity<Docstateinstance> entity= new HttpEntity(dsi,header);
 		
 		template.put(url+"/"+docstatinsId,entity);
+	}
+	
+	public Iterable<Documentt> getDSIDoc(Documentt doc) {
+		String dir=url+"/byDoc/"+doc.getDocId();
+		List<Documentt> documents= new ArrayList();
+		Iterable<Documentt> callmeResponse= null;
+		
+		HttpHeaders headers= new HttpHeaders();
+		
+		ResponseEntity<DocumenttList> response= template.getForEntity(url, DocumenttList.class);
+		callmeResponse= response.getBody().getList();
+		
+		return callmeResponse;
 	}
 }

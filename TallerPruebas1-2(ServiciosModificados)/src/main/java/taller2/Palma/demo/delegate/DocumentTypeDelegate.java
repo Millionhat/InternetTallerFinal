@@ -44,6 +44,17 @@ public class DocumentTypeDelegate {
 		return callmeResponse;
 	}
 	
+	public void createDocType(Documenttype dt) {
+		String url= "/RestDocType/";
+
+		
+		HttpHeaders header= new HttpHeaders();
+		HttpEntity<Documenttype> entity= new HttpEntity(dt,header);
+		
+		template.postForEntity(url,entity,Documenttype.class);
+		
+	}
+	
 	
 	public Documenttype getDocType(long doctypeId) {
 		String url= "/RestDocType/"+doctypeId;
