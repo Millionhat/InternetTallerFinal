@@ -108,8 +108,8 @@ class PersonServiceTest {
 	@Test
 	void testAddPerson4() {
 		//Asumimos que la institucion fakeInstitution no existe
-		when(ins.getInstitution(testSubject.getInstitution().getInstId())).thenReturn(inst);
-		when(ins.getInstitution(nullSubject.getInstitution().getInstId())).thenReturn(fakeIns);
+		when(ins.getInstitution(testSubject.getInstitution().getInstId()).get()).thenReturn(inst);
+		when(ins.getInstitution(nullSubject.getInstitution().getInstId()).get()).thenReturn(fakeIns);
 		try {
 			when(servo.addPerson(testSubject)).thenReturn(testSubject);
 		} catch (NonNullValueException e1) {
