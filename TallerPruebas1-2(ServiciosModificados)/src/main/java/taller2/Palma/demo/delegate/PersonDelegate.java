@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import taller2.Palma.demo.model.Person;
 import taller2.Palma.demo.wrapper.PersonList;
 
+@Component
 public class PersonDelegate {
 	
 	@Autowired

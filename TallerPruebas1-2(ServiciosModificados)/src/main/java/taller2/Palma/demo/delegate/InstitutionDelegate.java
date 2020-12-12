@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import taller2.Palma.demo.model.Institution;
 import taller2.Palma.demo.wrapper.InstitutionList;
 
+@Component
 public class InstitutionDelegate {
 	
 	@Autowired

@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.client.RestTemplate;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import taller2.Palma.demo.model.Iddocumenttype;
@@ -29,6 +30,10 @@ public class TallerPruebas11Application {
 		
 	}
 	
+	@Bean
+	public RestTemplate restTemplate() {
+	    return new RestTemplate();
+	}
 	@Bean
 	public CommandLineRunner register(InstitutionService service, UserService userve, IdDocTypeService ids) {
 		return (args)->{

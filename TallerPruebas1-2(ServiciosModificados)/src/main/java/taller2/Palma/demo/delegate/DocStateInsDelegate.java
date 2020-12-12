@@ -20,6 +20,7 @@ import taller2.Palma.demo.wrapper.DocumenttList;
 public class DocStateInsDelegate {
 	
 	private String url="/RestDocStateIns";
+	
 	@Autowired
 	RestTemplate template;
 	
