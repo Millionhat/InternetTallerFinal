@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import taller2.Palma.demo.delegate.DocumentDelegate;
+import taller2.Palma.demo.delegate.DocumentTypeDelegate;
+import taller2.Palma.demo.delegate.InstitutionDelegate;
 import taller2.Palma.demo.exception.NonNullValueException;
 import taller2.Palma.demo.model.Documentt;
 import taller2.Palma.demo.model.Documenttype;
@@ -25,26 +28,26 @@ import taller2.Palma.demo.service.InstitutionService;
 @Controller
 public class DocTypeController {
 	
-	private InstitutionService ins;
-	private DocumentTypeService dct;
-	private DocumentService docs;
+	private InstitutionDelegate ins;
+	private DocumentTypeDelegate dct;
+	private DocumentDelegate docs;
 	@Autowired
-	public DocTypeController(InstitutionService serv, DocumentTypeService ser,DocumentService doc) {
-		ins=serv;
-		dct=ser;
-		docs=doc;
+	public DocTypeController(InstitutionDelegate insDel, DocumentTypeDelegate dctDel,DocumentDelegate docDel) {
+		ins=insDel;
+		dct=dctDel;
+		docs=docDel;
 	}
 	
 	@GetMapping("/docType/")
 	public String indexDocType(Model model) {
-		model.addAttribute("docTypes",dct.getDocTypes());
+		model.addAttribute("docTypes",dct.getGroupDocTypeData());
 		return "docType/index";
 	}
 	
 	@GetMapping("/docType/add")
 	public String addDocType(Model model) {
 		model.addAttribute("docType",new Documenttype());
-		model.addAttribute("institution",ins.getInstitutions());
+		model.addAttribute("institution",ins.getGroupInstitution());
 		return "docType/addDocType";
 	}
 	
@@ -53,27 +56,27 @@ public class DocTypeController {
 			@Validated(add.class) @ModelAttribute Documenttype documenttype,BindingResult bindingResult, Model model) {
 		if(!action.equals("Cancel")) {
 			if(bindingResult.hasErrors()) {
-				model.addAttribute("institution",ins.getInstitutions());
+				model.addAttribute("institution",ins.getGroupInstitution());
 				return "docType/addDocType";
 			}
-			try {
-				dct.addDT(documenttype);
-			} catch (NonNullValueException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+				dct.createDocType(documenttype);
+//			} catch (NonNullValueException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 		return "redirect:/docType/";
 	}
 	
 	@GetMapping("/docType/edit/{id}")
 	public String editDocType(@PathVariable("id") long id, Model model) {
-		final Optional<Documenttype> docType=dct.getDocType(id);//Sino toca dejarlo en optional
+		final Optional<Documenttype> docType=Optional.of(dct.getDocType(id));//Sino toca dejarlo en optional
 		if(docType==null) {
 			throw new IllegalArgumentException("INVALID ID "+id);
 		}
 		model.addAttribute("docType",docType.get());
-		model.addAttribute("institutions",ins.getInstitutions());
+		model.addAttribute("institutions",ins.getGroupInstitution());
 		return "docType/editDocType";
 	}
 	
@@ -83,41 +86,41 @@ public class DocTypeController {
 		if(action!=null && !action.equals("Cancel")){
 			if(bind.hasErrors()) {
 				model.addAttribute("docType",documenttype);
-				model.addAttribute("institutions",ins.getInstitutions());
+				model.addAttribute("institutions",ins.getGroupInstitution());
 				return "docType/editDocType";
 			}
-			try {
+//			try {
 				documenttype.setDoctypeId(id);
-				dct.addDT(documenttype);
-			} catch (NonNullValueException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			model.addAttribute("docTypes",dct.getDocTypes());
+				dct.updateDocType(id, documenttype);;
+//			} catch (NonNullValueException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			model.addAttribute("docTypes",dct.getGroupDocTypeData());
 		}
 		return "redirect:/docType/";
 	}
 	
 	@GetMapping("/docType/del/{id}")
 	public String deleteDocType(@PathVariable("id") long id, Model model) {
-		final Optional<Documenttype> docType=dct.getDocType(id);
+		final Optional<Documenttype> docType=Optional.of(dct.getDocType(id));
 		if(docType==null) {
 			throw new IllegalArgumentException("Invalid Doc Type Id: "+id);
 		}
-		dct.delete(id);
-		model.addAttribute("docTypes",dct.getDocTypes());
+		dct.deleteDocType(id);
+		model.addAttribute("docTypes",dct.getGroupDocTypeData());
 		return "redirect:/docType/";
 	}
 	
 	@GetMapping("/docType/view/{id}")
 	public String consultDocType(@PathVariable("id") long id, Model model) {
-		final Optional<Documenttype> docType=dct.getDocType(id);//Sino toca dejarlo en optional
+		final Optional<Documenttype> docType=Optional.of(dct.getDocType(id));//Sino toca dejarlo en optional
 		if(docType==null) {
 			throw new IllegalArgumentException("INVALID ID "+id);
 		}
 		model.addAttribute("docType",docType.get());
-		model.addAttribute("institutions",ins.getInstitutions());
-		model.addAttribute("documents",docs.findDocsByType(docType.get()));
+		model.addAttribute("institutions",ins.getGroupInstitution());
+		model.addAttribute("documents",docs.getGroupDocbyType((docType.get())));
 		return "docType/consultDocType";
 	}
 }

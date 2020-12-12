@@ -17,11 +17,20 @@ public class InstitutionDelegate {
 	@Autowired
 	RestTemplate template;
 	
+	public void createInstitution(Institution institution) {
+		String url= "/RestInstitution";
+		HttpHeaders headers= new HttpHeaders();
+		HttpEntity<Institution> entity = new HttpEntity(institution,headers);
+		
+		
+	}
+	
 	public Iterable<Institution> getGroupInstitution(){
 		String url= "/RestInstitution";
 		List<Institution> institutions= new ArrayList();
 		
 		HttpHeaders headers= new HttpHeaders();
+		HttpEntity<List<Institution>> entity = new HttpEntity(institutions,headers);
 		
 		ResponseEntity<InstitutionList> response = template.getForEntity(url, InstitutionList.class);
 		Iterable<Institution> callmeResponse= response.getBody().getList();
@@ -34,6 +43,8 @@ public class InstitutionDelegate {
 		
 		HttpHeaders header= new HttpHeaders();
 		Institution ins= new Institution();
+		HttpEntity<Institution> entity = new HttpEntity(ins,header);
+		
 		ResponseEntity<Institution> response= template.getForEntity(url, Institution.class);
 		
 		return response.getBody();

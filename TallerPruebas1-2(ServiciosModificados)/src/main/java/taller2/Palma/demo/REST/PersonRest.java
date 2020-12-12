@@ -2,6 +2,7 @@ package taller2.Palma.demo.REST;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,7 @@ import taller2.Palma.demo.service.PersonService;
 @RestController
 @RequestMapping("/RestPerson")
 public class PersonRest {
-
+	
 	private PersonService service;
 	
 	public PersonRest(PersonService p) {
@@ -26,11 +27,11 @@ public class PersonRest {
 	}
 	
 	@PostMapping("/")
-	public void CreatePerson(Person dt)throws NonNullValueException {
+	public void createPerson(Person dt)throws NonNullValueException {
 		service.addPerson(dt);
 	}
 	
-	@DeleteMapping("{/personId}")
+	@DeleteMapping("/{personId}")
 	public void deletePerson(@PathVariable long personId){
 		Optional<Person> delet=service.getPerson(personId);
 		if (!delet.isEmpty()) {
@@ -38,12 +39,12 @@ public class PersonRest {
 		}
 	}
 	
-	@PutMapping("{/personId}")
+	@PutMapping("/{personId}")
 	public void editPerson(@PathVariable long personId,@RequestBody Person person) throws NonNullValueException{
 		service.update(person);
 	}
 	
-	@GetMapping("{/personId}")
+	@GetMapping("/{personId}")
 	public Person getPerson(@PathVariable long personId) {
 		return service.getPerson(personId).get();
 	}

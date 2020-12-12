@@ -33,5 +33,6 @@ public class IdDocTypeService {
 	public Iterable<Iddocumenttype> getIDTS(){
 		return repo.findAll();
 	}
+	
 
 }

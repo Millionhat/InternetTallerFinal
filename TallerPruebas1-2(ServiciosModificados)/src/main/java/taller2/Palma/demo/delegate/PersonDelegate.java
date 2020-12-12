@@ -19,10 +19,16 @@ public class PersonDelegate {
 	@Autowired
 	RestTemplate template;
 	
+	public void createPerson(Person person) {
+		String url="/RestPerson";
+		
+		HttpHeaders header= new HttpHeaders();
+		HttpEntity<Person> entity= new HttpEntity(person,header);
+		template.postForEntity(url, entity,Person.class);
+	}
 	
-	public Iterable<Person> getGroupDocTypeData(){
-		
-		
+	public Iterable<Person> getGroupPersonData(){		
+		//falta la URL 
 		String url="/RestPerson";
 		List<Person> person= new ArrayList();
 		
