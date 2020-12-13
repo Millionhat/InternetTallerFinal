@@ -26,7 +26,7 @@ public class IdDocTypeRest {
 	}
 	
 	@PostMapping("/")
-	public void createDocument(@RequestBody Iddocumenttype idt) {
+	public void createIdDocType(@RequestBody Iddocumenttype idt) {
 		serv.addIDT(idt);
 	}
 	
@@ -51,5 +51,10 @@ public class IdDocTypeRest {
 	@GetMapping("/")
 	public Iterable<Iddocumenttype> getTypes(){
 		return serv.getIDTS();
+	}
+	
+	@PutMapping("/{iddoctypeId}")
+	public void updateIDT(@PathVariable long iddoctypeId,@RequestBody Iddocumenttype idt) {
+		serv.updateIDT(idt);
 	}
 }

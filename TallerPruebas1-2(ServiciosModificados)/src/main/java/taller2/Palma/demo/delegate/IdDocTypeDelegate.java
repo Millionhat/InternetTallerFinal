@@ -21,6 +21,13 @@ public class IdDocTypeDelegate {
 	
 	private String url="/RestIDdoc";
 	
+	public void creatIdDocType(Iddocumenttype idt) {
+		HttpHeaders headers= new HttpHeaders();
+		HttpEntity<Iddocumenttype> entity= new HttpEntity(idt,headers);
+		
+		template.postForEntity(url, entity, Iddocumenttype.class);
+	}
+	
 	public Iterable<Iddocumenttype> getGroupTypes(){
 		List<Iddocumenttype> idTypes= new ArrayList();
 		Iterable<Iddocumenttype> callmeResponse=null;
@@ -51,4 +58,11 @@ public class IdDocTypeDelegate {
 		template.delete(dir);
 	}
 	
+	public void updateIDT(long iddoctypeId, Iddocumenttype edited) {
+		String dir= url+"/"+iddoctypeId;
+		HttpHeaders headers= new HttpHeaders();
+		HttpEntity<Iddocumenttype> entity= new HttpEntity(edited,headers);
+		
+		template.put(dir, entity);
+	}
 }

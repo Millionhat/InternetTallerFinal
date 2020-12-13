@@ -34,5 +34,10 @@ public class IdDocTypeService {
 		return repo.findAll();
 	}
 	
+	public void updateIDT(Iddocumenttype idt) {
+		Iddocumenttype edited= repo.findByI(idt.getIddoctypeId());
+		edited=idt;
+		repo.update(edited);
+	}
 
 }
