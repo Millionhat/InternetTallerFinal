@@ -41,7 +41,7 @@ public class PersonService implements PersonServiceInterface{
 		// TODO Auto-generated method stub
 		if(add.getPersName()!=""||add.getPersName()!=null||add.getPersLastname()!=""||add.getPersLastname()!=null) {
 			Person existing= repo.findById(add.getPersId());
-			add.setPersId(existing.getPersId());
+			existing=add;
 			repo.update(existing);
 			return add;
 		}else {

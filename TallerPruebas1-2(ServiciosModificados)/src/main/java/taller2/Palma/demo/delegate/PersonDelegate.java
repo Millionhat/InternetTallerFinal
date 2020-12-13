@@ -29,7 +29,6 @@ public class PersonDelegate {
 	}
 	
 	public Iterable<Person> getGroupPersonData(){		
-		//falta la URL 
 		String url="/RestPerson";
 		List<Person> person= new ArrayList();
 		
