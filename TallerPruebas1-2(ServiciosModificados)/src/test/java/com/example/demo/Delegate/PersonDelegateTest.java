@@ -85,7 +85,7 @@ public class PersonDelegateTest {
 	}
 	
 	@Test
-	void testDelete() {
+	void testDeletePerson() {
 		Person p1= new Person();
 		p1.setPersName("juan");
 		p1.setPersLastname("juan");
@@ -95,6 +95,9 @@ public class PersonDelegateTest {
 		delegate.createPerson(p1);
 		
 		delegate.deletePerson(p1.getPersId());
+		
+		List<Person> list= new ArrayList();
+		when(delegate.getGroupPersonData()).thenReturn(list);
 		List<Person> answers= (List<Person>) delegate.getGroupPersonData();
 		
 		assertTrue(answers.size()==0);
