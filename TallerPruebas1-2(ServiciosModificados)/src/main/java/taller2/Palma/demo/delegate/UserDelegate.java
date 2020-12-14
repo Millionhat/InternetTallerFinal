@@ -27,7 +27,7 @@ public class UserDelegate {
 		template.postForEntity(url, entity, Userr.class);
 	}
 
-	public Iterable<Userr> getGroupUSer(){
+	public Iterable<Userr> getGroupUser(){
 		List<Userr> users= new ArrayList();
 		
 		HttpHeaders headers= new HttpHeaders();
