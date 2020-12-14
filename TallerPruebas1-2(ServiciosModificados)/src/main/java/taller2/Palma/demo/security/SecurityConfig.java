@@ -46,11 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		.anyRequest().authenticated().and().httpBasic().and().logout().invalidateHttpSession(true).clearAuthentication(true)
 //		.and().logout().invalidateHttpSession(true).clearAuthentication(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 //		.logoutSuccessUrl("/login?logout").permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-		
-		httpSecurity.authorizeRequests().antMatchers("/**").authenticated().anyRequest().permitAll().and().formLogin().and().logout()
-        .invalidateHttpSession(true).clearAuthentication(true)
-        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
-        .permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+//		
+//		httpSecurity.authorizeRequests().antMatchers("/**").authenticated().anyRequest().permitAll().and().formLogin().and().logout()
+//        .invalidateHttpSession(true).clearAuthentication(true)
+//        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+//        .permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 	/**
 		httpSecurity.authorizeRequests().antMatchers("/secure/**").authenticated().anyRequest().permitAll().and().httpBasic().and().logout()
 		.invalidateHttpSession(true).clearAuthentication(true)

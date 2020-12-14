@@ -1,5 +1,6 @@
 package taller2.Palma.demo.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -54,7 +55,7 @@ public class PersonService implements PersonServiceInterface{
 		repo.delete(deleted);
 	}
 	
-	public Iterable<Person> getPeople(){
+	public List<Person> getPeople(){
 		return repo.findAll();
 	}
 	

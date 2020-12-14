@@ -17,7 +17,7 @@ public class PersonList {
 		return person;
 	}
 	
-	public void setList(ArrayList<Person> list) {
+	public void setList(List<Person> list) {
 		person= list;
 	}
 

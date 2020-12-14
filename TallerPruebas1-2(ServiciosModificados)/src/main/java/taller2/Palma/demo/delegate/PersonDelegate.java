@@ -1,6 +1,9 @@
 package taller2.Palma.demo.delegate;
 
+import java.awt.PageAttributes.MediaType;
+import java.net.http.HttpClient;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,9 +26,9 @@ public class PersonDelegate {
 	
 	@Autowired
 	RestTemplate template;
-	
+
 	public void createPerson(Person person) {
-		String url="/RestPerson";
+		String url="http://localhost:8081/person/RestPerson";
 		
 		HttpHeaders header= new HttpHeaders();
 		HttpEntity<Person> entity= new HttpEntity(person,header);
@@ -29,7 +36,7 @@ public class PersonDelegate {
 	}
 	
 	public Iterable<Person> getGroupPersonData(){		
-		String url="/RestPerson";
+		String url="http://localhost:8081/person/RestPerson/";
 		List<Person> person= new ArrayList();
 		
 		HttpHeaders header= new HttpHeaders();
@@ -37,14 +44,14 @@ public class PersonDelegate {
 		
 		ResponseEntity<PersonList> reponse= template.getForEntity(url, PersonList.class);
 		
-		Iterable<Person> callmeResponse = reponse.getBody().getList();
+		//Iterable<Person> callmeResponse = reponse.getBody().getList();
 		
-		return callmeResponse;
-		
+		//return callmeResponse;
+		return null;
 	}
 	
 	public Person getPerson(long personId) {
-		String url= "/RestPerson/" + personId;
+		String url= "/person/RestPerson/" + personId;
 		
 		Person p= new Person();
 		
@@ -58,7 +65,7 @@ public class PersonDelegate {
 	}
 	
 	public void updatePerson(long personId,Person p) {
-		String url = "/RestPerson/" + personId;
+		String url = "/person/RestPerson/" + personId;
 		
 		HttpHeaders header= new HttpHeaders();
 		HttpEntity<Person> entity = new HttpEntity(p,header);
@@ -67,7 +74,7 @@ public class PersonDelegate {
 	}
 	
 	public void deletePerson(long personId) {
-		String url = "/RestPerson/" + personId;
+		String url = "/person/RestPerson/" + personId;
 		
 		template.delete(url);
 	}
