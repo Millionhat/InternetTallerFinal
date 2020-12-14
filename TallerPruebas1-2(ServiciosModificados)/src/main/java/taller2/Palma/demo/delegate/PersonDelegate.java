@@ -18,6 +18,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import taller2.Palma.demo.model.Documentt;
+import taller2.Palma.demo.model.Documenttype;
+import taller2.Palma.demo.model.Iddocumenttype;
 import taller2.Palma.demo.model.Person;
 import taller2.Palma.demo.wrapper.PersonList;
 
@@ -39,15 +42,22 @@ public class PersonDelegate {
 		String url="http://localhost:8081/person/RestPerson/";
 		List<Person> person= new ArrayList();
 		
-		HttpHeaders header= new HttpHeaders();
-		HttpEntity<List<PersonList>> entity = new HttpEntity(person,header);
+//		HttpHeaders header= new HttpHeaders();
+//		HttpEntity<List<PersonList>> entity = new HttpEntity(person,header);
 		
-		ResponseEntity<PersonList> reponse= template.getForEntity(url, PersonList.class);
+		ResponseEntity<Person[]> reponse= template.getForEntity(url, Person[].class);
 		
-		//Iterable<Person> callmeResponse = reponse.getBody().getList();
+		Person[] people= reponse.getBody();
 		
-		//return callmeResponse;
-		return null;
+		List<Person> cosas= new ArrayList();
+		for(int i=0;i<people.length;i++) {
+			cosas.add(people[i]);
+		}
+		
+		
+		Iterable<Person> callmeResponse = cosas;
+		
+		return callmeResponse;
 	}
 	
 	public Person getPerson(long personId) {

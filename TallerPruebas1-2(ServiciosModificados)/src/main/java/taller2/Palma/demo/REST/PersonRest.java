@@ -54,13 +54,13 @@ public class PersonRest {
 	
 	@GetMapping(value= "/")
 	public List<Person> getPeople() throws NonNullValueException{
-//		Person p1= new Person();
-//		p1.setPersName("juan");
-//		p1.setPersLastname("juan");
-//		p1.setPersEmail("j@gmail.com");
-//		p1.setPersIddocument("111111");
-//		
-//		service.addPerson(p1);
+		Person p1= new Person();
+		p1.setPersName("juan");
+		p1.setPersLastname("juan");
+		p1.setPersEmail("j@gmail.com");
+		p1.setPersIddocument("111111");
+		
+		service.addPerson(p1);
 		
 		List<Person> people = service.getPeople();
 		return people;
