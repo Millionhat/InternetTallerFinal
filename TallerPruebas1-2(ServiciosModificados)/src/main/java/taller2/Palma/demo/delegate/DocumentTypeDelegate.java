@@ -48,7 +48,7 @@ public class DocumentTypeDelegate {
 	}
 	
 	public void createDocType(Documenttype dt) {
-		String url= "http://localhost:8081/docType/RestDocType";
+		String url= "http://localhost:8081/docType/RestDocType/";
 
 //		URI uri= new URI(url);
 //		HttpHeaders header= new HttpHeaders();
@@ -60,7 +60,7 @@ public class DocumentTypeDelegate {
 		header.setContentType(MediaType.APPLICATION_JSON);
 		header.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
 		HttpEntity<Documenttype> entity= new HttpEntity<>(dt,header);
-		Documenttype test = template.postForObject(url, entity, Documenttype.class);
+		ResponseEntity<Documenttype> test = template.postForEntity(url, entity, Documenttype.class);
 		
 		
 		
@@ -68,7 +68,7 @@ public class DocumentTypeDelegate {
 	
 	
 	public Documenttype getDocType(long doctypeId) {
-		String url= "/RestDocType/"+doctypeId;
+		String url= "http://localhost:8081/docType/RestDocType/"+doctypeId;
 		
 		Documenttype dt=new Documenttype();
 		

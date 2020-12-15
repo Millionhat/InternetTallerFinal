@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,13 +32,27 @@ public class DocumentTypeRest {
 		serv=s;
 	}
 	
-	@PostMapping(value="/")
-	public void createDocType(@RequestBody Documenttype dt, UriComponentsBuilder builder) throws NonNullValueException {
-		serv.addDT(dt);
+	@PostMapping(path="/",consumes= {
+			MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE
+	},produces= {
+			MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE
+	})
+	public ResponseEntity<Documenttype> createDocType(@RequestBody Documenttype dt) throws NonNullValueException {
+		Documenttype returnValue= new Documenttype();
+		returnValue.setDoctypeId(dt.getDoctypeId());
+		returnValue.setDoctypeName(dt.getDoctypeName());
+		
+		serv.addDT(returnValue);
+		
+		return new ResponseEntity<Documenttype>(returnValue,HttpStatus.OK);
+	
+		
 	}
 	
 	
-	@DeleteMapping("/{doctypeId}")
+	@DeleteMapping(path="/{doctypeId}")
 	public void deleteDocType(@PathVariable long doctypeId) {
 		Optional<Documenttype> deleted=serv.getDocType(doctypeId);
 		if(!deleted.isEmpty()) {
@@ -47,20 +65,24 @@ public class DocumentTypeRest {
 		serv.update(documenttype);
 	}
 	
-	@GetMapping("/{doctypeId}")
-	public Documenttype getDocType(@PathVariable long doctypeId) {
-		return serv.getDocType(doctypeId).get();
+	@GetMapping(path="/{doctypeId}",produces= {
+			MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE
+	})
+	public ResponseEntity<Documenttype> getDocType(@PathVariable long doctypeId) {
+		
+		return new ResponseEntity<Documenttype>(serv.getDocType(doctypeId).get(),HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/")
 	public Iterable<Documenttype> getDocTypes(){
-		//List<Documenttype> document = serv.getDocTypes();
-		List<Documenttype> document = new ArrayList();
-		Documenttype dt=new Documenttype();
-		dt.setDoctypeName("Excel");
-		dt.setDoctypeIsactive("Verdadero");
-		
-		document.add(dt);
+		List<Documenttype> document = serv.getDocTypes();
+//		List<Documenttype> document = new ArrayList();
+//		Documenttype dt=new Documenttype();
+//		dt.setDoctypeName("Excel");
+//		dt.setDoctypeIsactive("Verdadero");
+//		
+//		document.add(dt);
 		
 		return document;
 	}
