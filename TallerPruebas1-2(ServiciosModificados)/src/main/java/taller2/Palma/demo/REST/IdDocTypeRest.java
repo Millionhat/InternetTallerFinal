@@ -2,6 +2,9 @@ package taller2.Palma.demo.REST;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import taller2.Palma.demo.model.Documenttype;
 import taller2.Palma.demo.model.Iddocumenttype;
 import taller2.Palma.demo.model.Person;
 import taller2.Palma.demo.service.IdDocTypeService;
@@ -25,12 +29,19 @@ public class IdDocTypeRest {
 		serv=s;
 	}
 	
-	@PostMapping("/")
-	public void createIdDocType(@RequestBody Iddocumenttype idt) {
+	@PostMapping(path="/",consumes= {
+			MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE
+	},produces= {
+			MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE
+	})
+	public ResponseEntity<Iddocumenttype> createIdDocType(@RequestBody Iddocumenttype idt) {
 		serv.addIDT(idt);
+		return new ResponseEntity<Iddocumenttype>(idt,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{iddoctypeId}")
+	@DeleteMapping(path="/{iddoctypeId}")
 	public void deleteDoc(@PathVariable long iddoctypeId) {
 		Optional<Iddocumenttype> deleted= serv.getIDT(iddoctypeId);
 		if(!deleted.isEmpty()) {
@@ -43,12 +54,15 @@ public class IdDocTypeRest {
 //		serv.
 //	}
 	
-	@GetMapping("/{iddocumenttypeId}")
-	public Iddocumenttype getType(@PathVariable long iddocumenttypeId) {
-		return serv.getIDT(iddocumenttypeId).get();
+	@GetMapping(path="/{iddocumenttypeId}",produces= {
+			MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE
+	})
+	public ResponseEntity<Iddocumenttype> getType(@PathVariable long iddocumenttypeId) {
+		return new ResponseEntity<Iddocumenttype>(serv.getIDT(iddocumenttypeId).get(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/")
+	@GetMapping(value="/")
 	public Iterable<Iddocumenttype> getTypes(){
 		return serv.getIDTS();
 	}
