@@ -2,6 +2,9 @@ package taller2.Palma.demo.REST;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,12 +31,23 @@ public class DocStateInsRest {
 		docs=d;
 	}
 	
-	@PostMapping("/")
-	public void createDocInsState(@RequestBody Docstateinstance dts) throws NonValidDateException {
+	@PostMapping(path="/",consumes= {
+			MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE
+	},produces= {
+			MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE
+	})
+	public ResponseEntity<Docstateinstance> createDocInsState(@RequestBody Docstateinstance dts) throws NonValidDateException {
+		Docstateinstance returnValue = new Docstateinstance();
+		returnValue=dts;
+		
 		serv.addDTS(dts);
+		
+		return new ResponseEntity<Docstateinstance>(returnValue,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{docstatinsId}")
+	@DeleteMapping(path="/{docstatinsId}")
 	public void deleteDocsStateIns(@PathVariable long docstatinsId) {
 		Optional<Docstateinstance> deleted= serv.getDocInstance(docstatinsId);
 		if(!deleted.isEmpty()) {
@@ -51,7 +65,7 @@ public class DocStateInsRest {
 		return serv.getDocInstance(docstatinsId).get();
 	}
 	
-	@GetMapping("/")
+	@GetMapping(value="/")
 	public Iterable<Docstateinstance> getDSIS(){
 		return serv.getDocInstances();
 	}
