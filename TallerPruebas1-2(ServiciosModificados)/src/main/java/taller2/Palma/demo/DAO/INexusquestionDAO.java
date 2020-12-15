@@ -2,6 +2,7 @@ package taller2.Palma.demo.DAO;
 
 import java.util.List;
 
+import taller2.Palma.demo.model.Nexuspoll;
 import taller2.Palma.demo.model.Nexusquestion;
 
 public interface INexusquestionDAO {
@@ -16,5 +17,5 @@ public interface INexusquestionDAO {
 	
 	public void update(Nexusquestion question);
 	
-	public List<Nexusquestion> findByPoll(long poll);
+	public List<Nexusquestion> findByPoll(Nexuspoll poll);
 }

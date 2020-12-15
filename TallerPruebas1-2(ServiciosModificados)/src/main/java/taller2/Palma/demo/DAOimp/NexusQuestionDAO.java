@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import taller2.Palma.demo.DAO.INexusquestionDAO;
+import taller2.Palma.demo.model.Nexuspoll;
 import taller2.Palma.demo.model.Nexusquestion;
 
 public class NexusQuestionDAO implements INexusquestionDAO {
@@ -54,7 +55,7 @@ public class NexusQuestionDAO implements INexusquestionDAO {
 
 	@Transactional
 	@Override
-	public List<Nexusquestion> findByPoll(long poll) {
+	public List<Nexusquestion> findByPoll(Nexuspoll poll) {
 		// TODO Auto-generated method stub
 		String jpql="SELECT q FROM Nexusquestion q WHERE p.nexuspoll= :id";
 		Query query= manager.createQuery(jpql);

@@ -2,10 +2,13 @@ package taller2.Palma.demo.service;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import taller2.Palma.demo.DAOimp.NexusPollDAO;
 import taller2.Palma.demo.model.Nexuspoll;
 import taller2.Palma.demo.serviceInt.NexusPollServiceInterface;
 
+@Service
 public class NexusPollService implements NexusPollServiceInterface {
 	
 	private NexusPollDAO repo;

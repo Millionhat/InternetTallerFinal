@@ -2,10 +2,14 @@ package taller2.Palma.demo.service;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import taller2.Palma.demo.DAOimp.NexusQuestionDAO;
+import taller2.Palma.demo.model.Nexuspoll;
 import taller2.Palma.demo.model.Nexusquestion;
 import taller2.Palma.demo.serviceInt.NexusQuestionServiceInterface;
 
+@Service
 public class NexusQuestionService implements NexusQuestionServiceInterface {
 	
 	private NexusQuestionDAO repo;
@@ -48,7 +52,7 @@ public class NexusQuestionService implements NexusQuestionServiceInterface {
 		return repo.findAll();
 	}
 
-	public Iterable<Nexusquestion> findQuestionsByPoll(long id){
+	public Iterable<Nexusquestion> findQuestionsByPoll(Nexuspoll id){
 		return repo.findByPoll(id);
 	}
 }
