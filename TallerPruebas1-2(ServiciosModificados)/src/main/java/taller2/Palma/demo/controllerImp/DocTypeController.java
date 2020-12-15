@@ -1,5 +1,6 @@
 package taller2.Palma.demo.controllerImp;
 
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,19 +53,20 @@ public class DocTypeController {
 	}
 	
 	@PostMapping("/docType/add")
-	public String saveDocType(@RequestParam(value="action",required=true) String action,
-			@Validated(add.class) @ModelAttribute Documenttype documenttype,BindingResult bindingResult, Model model) {
+	public String saveDocType(@Validated @ModelAttribute Documenttype documenttype,
+			BindingResult bindingResult, Model model,@RequestParam(value="action",required=true) String action) {
 		if(!action.equals("Cancel")) {
 			if(bindingResult.hasErrors()) {
+				
+				model.addAttribute("docType",documenttype);
 				model.addAttribute("institution",ins.getGroupInstitution());
+				
 				return "docType/addDocType";
 			}
-//			try {
+			if(!action.equals("Cancel")) {
 				dct.createDocType(documenttype);
-//			} catch (NonNullValueException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			
+			}
 		}
 		return "redirect:/docType/";
 	}

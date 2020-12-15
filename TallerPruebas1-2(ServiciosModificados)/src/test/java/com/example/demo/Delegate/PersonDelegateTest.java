@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
 
 import taller2.Palma.demo.REST.PersonRest;
 import taller2.Palma.demo.delegate.PersonDelegate;
@@ -26,6 +27,8 @@ import taller2.Palma.demo.model.Person;
 @Rollback(false)
 public class PersonDelegateTest {
 	
+	@Autowired
+	private MockMvc mvc;
 	
 	@Mock
 	private PersonDelegate delegate;

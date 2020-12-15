@@ -47,7 +47,7 @@ public class PersonControllerImp {
 	
 	@GetMapping("/person/")
 	public String indexPerson(Model model) {
-		model.addAttribute("people",per.getGroupPersonData());
+		model.addAttribute("people", per.getGroupPersonData());
 		return "person/index";
 	}
 	

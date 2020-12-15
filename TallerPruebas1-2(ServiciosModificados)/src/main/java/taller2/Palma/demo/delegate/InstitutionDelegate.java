@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import taller2.Palma.demo.model.Institution;
+import taller2.Palma.demo.model.Person;
 import taller2.Palma.demo.wrapper.InstitutionList;
 
 @Component
@@ -20,7 +21,7 @@ public class InstitutionDelegate {
 	RestTemplate template;
 	
 	public void createInstitution(Institution institution) {
-		String url= "/RestInstitution";
+		String url= "http://localhost:8081/RestInstitution";
 		HttpHeaders headers= new HttpHeaders();
 		HttpEntity<Institution> entity = new HttpEntity(institution,headers);
 		
@@ -30,14 +31,19 @@ public class InstitutionDelegate {
 	}
 	
 	public Iterable<Institution> getGroupInstitution(){
-		String url= "/RestInstitution";
+		String url= "http://localhost:8081/RestInstitution/";
 		List<Institution> institutions= new ArrayList();
 		
-		HttpHeaders headers= new HttpHeaders();
-		HttpEntity<List<Institution>> entity = new HttpEntity(institutions,headers);
+//		HttpHeaders headers= new HttpHeaders();
+//		HttpEntity<List<Institution>> entity = new HttpEntity(institutions,headers);
 		
-		ResponseEntity<InstitutionList> response = template.getForEntity(url, InstitutionList.class);
-		Iterable<Institution> callmeResponse= response.getBody().getList();
+		ResponseEntity<Institution[]> response = template.getForEntity(url, Institution[].class);
+		
+		Institution[] inst= response.getBody();
+		for(int i=0;i<inst.length;i++) {
+			institutions.add(inst[i]);
+		}
+		Iterable<Institution> callmeResponse= institutions;
 		
 		return callmeResponse;
 	}

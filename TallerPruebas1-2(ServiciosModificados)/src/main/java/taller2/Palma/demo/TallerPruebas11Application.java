@@ -1,8 +1,11 @@
 package taller2.Palma.demo;
 
+import java.time.Duration;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
@@ -31,8 +34,8 @@ public class TallerPruebas11Application {
 	}
 	
 	@Bean
-	public RestTemplate restTemplate() {
-	    return new RestTemplate();
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+	    return builder.build();
 	}
 	@Bean
 	public CommandLineRunner register(InstitutionService service, UserService userve, IdDocTypeService ids) {

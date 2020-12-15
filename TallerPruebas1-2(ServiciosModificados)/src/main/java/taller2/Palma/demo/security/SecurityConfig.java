@@ -41,16 +41,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		.and().logout().permitAll()
 //				.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 		
+		httpSecurity.authorizeRequests().antMatchers("/**").permitAll();
+		httpSecurity.csrf().disable();
+		
 //		httpSecurity.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
 //		.antMatchers("/index").permitAll().antMatchers("/person","/docs","/docinst","/docType").permitAll()
 //		.anyRequest().authenticated().and().httpBasic().and().logout().invalidateHttpSession(true).clearAuthentication(true)
 //		.and().logout().invalidateHttpSession(true).clearAuthentication(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 //		.logoutSuccessUrl("/login?logout").permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-		
-		httpSecurity.authorizeRequests().antMatchers("/**").authenticated().anyRequest().permitAll().and().formLogin().and().logout()
-        .invalidateHttpSession(true).clearAuthentication(true)
-        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
-        .permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+//		
+//		httpSecurity.authorizeRequests().antMatchers("/**").authenticated().anyRequest().permitAll().and().formLogin().and().logout()
+//        .invalidateHttpSession(true).clearAuthentication(true)
+//        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+//        .permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 	/**
 		httpSecurity.authorizeRequests().antMatchers("/secure/**").authenticated().anyRequest().permitAll().and().httpBasic().and().logout()
 		.invalidateHttpSession(true).clearAuthentication(true)

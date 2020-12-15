@@ -1,5 +1,6 @@
 package taller2.Palma.demo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class DocumentTypeService implements DocumentTypeServiceInterface{
 		dtRepo.delete(tobeDeleted);
 	}
 	
-	public Iterable<Documenttype> getDocTypes(){
+	public List<Documenttype> getDocTypes(){
 		return dtRepo.findAll();
 	}
 }
