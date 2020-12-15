@@ -2,6 +2,7 @@ package taller2.Palma.demo.REST;
 
 import java.util.Optional;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,7 @@ import taller2.Palma.demo.model.Nexuspoll;
 import taller2.Palma.demo.service.NexusPollService;
 
 @RestController
-@RequestMapping("/RestNexusPoll")
+@RequestMapping("/nexusPoll/RestNexusPoll")
 public class NexusPollRest {
 	
 	private NexusPollService nps;
@@ -24,12 +25,18 @@ public class NexusPollRest {
 		this.nps=nps;
 	}
 	
-	@PostMapping("/")
+	@PostMapping(path="/",consumes= {
+			MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE
+	},produces= {
+			MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE
+	})
 	public void addPoll(@RequestBody Nexuspoll poll) {
 		nps.addPoll(poll);
 	}
 	
-	@DeleteMapping("/{nexpollId}")
+	@DeleteMapping(path="/{nexpollId}")
 	public void deletePoll(@PathVariable long nexpollId) {
 		Optional<Nexuspoll> deleted= nps.getPoll(nexpollId);
 		nps.delete(deleted.get());
@@ -40,12 +47,15 @@ public class NexusPollRest {
 		nps.update(poll);
 	}
 	
-	@GetMapping("/")
+	@GetMapping(value="/")
 	public Iterable<Nexuspoll> getPolls(){
 		return nps.getPolls();
 	}
 	
-	@GetMapping("/{nexpollId}")
+	@GetMapping(path="/{nexpollId}",produces= {
+			MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE
+	})
 	public Nexuspoll getPoll(@PathVariable long nexpollId) {
 		return nps.getPoll(nexpollId).get();
 	}
