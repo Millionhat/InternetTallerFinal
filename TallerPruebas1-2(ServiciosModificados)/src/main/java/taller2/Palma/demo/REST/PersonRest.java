@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,12 +32,25 @@ public class PersonRest {
 		service=p;
 	}
 	
-	@PostMapping("/person/")
-	public void createPerson(Person dt)throws NonNullValueException {
-		service.addPerson(dt);
+	@PostMapping(path="/",consumes= {MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE }, produces= {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
+	
+	public ResponseEntity<Person> createPerson(@RequestBody Person p)throws NonNullValueException {
+		
+
+		Person p1= new Person();
+		p1.setPersName(p.getPersName());
+		p1.setPersLastname(p.getPersLastname());
+		p1.setPersEmail(p.getPersEmail());
+		p1.setPersIddocument(p.getPersIddocument());
+
+		
+		service.addPerson(p1);
+		
+		return new ResponseEntity<Person>(p,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/person/{personId}")
+	@DeleteMapping("/{personId}")
 	public void deletePerson(@PathVariable long personId){
 		Optional<Person> delet=service.getPerson(personId);
 		if (!delet.isEmpty()) {
@@ -42,12 +58,12 @@ public class PersonRest {
 		}
 	}
 	
-	@PutMapping("/person/{personId}")
+	@PutMapping("/{personId}")
 	public void editPerson(@PathVariable long personId,@RequestBody Person person) throws NonNullValueException{
 		service.update(person);
 	}
 	
-	@GetMapping("/person/{personId}")
+	@GetMapping("/{personId}")
 	public Person getPerson(@PathVariable long personId) {
 		return service.getPerson(personId).get();
 	}

@@ -40,13 +40,10 @@ public class DocumentTypeRest {
 			MediaType.APPLICATION_XML_VALUE
 	})
 	public ResponseEntity<Documenttype> createDocType(@RequestBody Documenttype dt) throws NonNullValueException {
-		Documenttype returnValue= new Documenttype();
-		returnValue.setDoctypeId(dt.getDoctypeId());
-		returnValue.setDoctypeName(dt.getDoctypeName());
+	
+		serv.addDT(dt);
 		
-		serv.addDT(returnValue);
-		
-		return new ResponseEntity<Documenttype>(returnValue,HttpStatus.OK);
+		return new ResponseEntity<Documenttype>(dt,HttpStatus.OK);
 	
 		
 	}
