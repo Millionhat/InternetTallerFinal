@@ -82,14 +82,14 @@ public class DocumentTypeDelegate {
 	}
 	
 	public void deleteDocType(long doctypeId) {
-		String url="/RestDocType/"+doctypeId;
+		String url="http://localhost:8081/docType/RestDocType/"+doctypeId;
 		
 		template.delete(url);
 	}
 	
 	public void updateDocType(long doctypeId, Documenttype updated) {
 		
-		String url= "/RestDocType/"+doctypeId;
+		String url= "http://localhost:8081/docType/RestDocType/"+doctypeId;
 		
 		HttpHeaders header= new HttpHeaders();
 		HttpEntity<Documenttype> entity= new HttpEntity(updated,header);
