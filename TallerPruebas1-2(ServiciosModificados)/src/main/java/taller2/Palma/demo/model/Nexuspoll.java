@@ -24,7 +24,7 @@ public class Nexuspoll implements Serializable {
 	private long nexpollId;
 
 	@Column(name="INST_INST_ID")
-	private BigDecimal instInstId;
+	private long instInstId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="NEXPOLL_ENDDATE")
@@ -57,11 +57,11 @@ public class Nexuspoll implements Serializable {
 		this.nexpollId = nexpollId;
 	}
 
-	public BigDecimal getInstInstId() {
+	public long getInstInstId() {
 		return this.instInstId;
 	}
 
-	public void setInstInstId(BigDecimal instInstId) {
+	public void setInstInstId(long instInstId) {
 		this.instInstId = instInstId;
 	}
 
