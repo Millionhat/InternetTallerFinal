@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 		
 		httpSecurity.authorizeRequests().antMatchers("/**").permitAll();
+		httpSecurity.csrf().disable();
 		
 //		httpSecurity.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
 //		.antMatchers("/index").permitAll().antMatchers("/person","/docs","/docinst","/docType").permitAll()
