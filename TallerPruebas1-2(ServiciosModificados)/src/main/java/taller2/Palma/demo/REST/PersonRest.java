@@ -36,8 +36,16 @@ public class PersonRest {
 			MediaType.APPLICATION_XML_VALUE }, produces= {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	
 	public ResponseEntity<Person> createPerson(@RequestBody Person p)throws NonNullValueException {
-	
-		service.addPerson(p);
+		
+
+		Person p1= new Person();
+		p1.setPersName(p.getPersName());
+		p1.setPersLastname(p.getPersLastname());
+		p1.setPersEmail(p.getPersEmail());
+		p1.setPersIddocument(p.getPersIddocument());
+
+		
+		service.addPerson(p1);
 		
 		return new ResponseEntity<Person>(p,HttpStatus.OK);
 	}
@@ -62,14 +70,6 @@ public class PersonRest {
 	
 	@GetMapping(value= "/")
 	public List<Person> getPeople() throws NonNullValueException{
-		
-		Person p1= new Person();
-		p1.setPersName("juan");
-		p1.setPersLastname("juan");
-		p1.setPersEmail("j@gmail.com");
-		p1.setPersIddocument("111111");
-		
-		service.addPerson(p1);
 		
 		List<Person> people = service.getPeople();
 		return people;

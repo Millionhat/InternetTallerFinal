@@ -59,7 +59,7 @@ public class PersonDelegate {
 	}
 	
 	public Person getPerson(long personId) {
-		String url= "/person/RestPerson/" + personId;
+		String url= "http://localhost:8081/person/RestPerson/" + personId;
 		
 		Person p= new Person();
 		
@@ -73,7 +73,7 @@ public class PersonDelegate {
 	}
 	
 	public void updatePerson(long personId,Person p) {
-		String url = "/person/RestPerson/" + personId;
+		String url = "http://localhost:8081/person/RestPerson/" + personId;
 		
 		HttpHeaders header= new HttpHeaders();
 		HttpEntity<Person> entity = new HttpEntity(p,header);
@@ -82,7 +82,7 @@ public class PersonDelegate {
 	}
 	
 	public void deletePerson(long personId) {
-		String url = "/person/RestPerson/" + personId;
+		String url = "http://localhost:8081/person/RestPerson/" + personId;
 		
 		template.delete(url);
 	}
