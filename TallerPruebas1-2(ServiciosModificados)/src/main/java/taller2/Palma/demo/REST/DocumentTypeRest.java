@@ -1,5 +1,7 @@
 package taller2.Palma.demo.REST;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +18,7 @@ import taller2.Palma.demo.model.Documenttype;
 import taller2.Palma.demo.service.DocumentTypeService;
 
 @RestController
-@RequestMapping("/RestDocType")
+@RequestMapping("/docType/RestDocType")
 public class DocumentTypeRest {
 	
 	private DocumentTypeService serv;
@@ -49,8 +51,16 @@ public class DocumentTypeRest {
 		return serv.getDocType(doctypeId).get();
 	}
 	
-	@GetMapping("/")
+	@GetMapping(value="/")
 	public Iterable<Documenttype> getDocTypes(){
-		return serv.getDocTypes();
+		//List<Documenttype> document = serv.getDocTypes();
+		List<Documenttype> document = new ArrayList();
+		Documenttype dt=new Documenttype();
+		dt.setDoctypeName("Excel");
+		dt.setDoctypeIsactive("Verdadero");
+		
+		document.add(dt);
+		
+		return document;
 	}
 }

@@ -1,5 +1,6 @@
 package taller2.Palma.demo.REST;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,9 +41,11 @@ public class InstitutionRest {
 		return service.getInstitution(insId).get();
 	}
 	
-	@GetMapping("/")
-	public Iterable<Institution> getInstitutions(){
-		return service.getInstitutions();
+	@GetMapping(value="/")
+	public List<Institution> getInstitutions(){
+		
+		List<Institution> inst= service.getInstitutions();
+		return inst;
 	}
 }
 

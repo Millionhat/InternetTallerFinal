@@ -1,5 +1,6 @@
 package taller2.Palma.demo.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ public class InstitutionService implements InstitutionServiceInterface{
 		return ins;
 	}
 	
-	public Iterable<Institution> getInstitutions(){
+	public List<Institution> getInstitutions(){
 		return insRepo.findAll();
 	}
 

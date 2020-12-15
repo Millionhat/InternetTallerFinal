@@ -24,24 +24,24 @@ public class DocumentTypeDelegate {
 	RestTemplate template;
 	
 	public Iterable<Documenttype> getGroupDocTypeData(){
-		String url="/RestDocType";
+		String url="http://localhost:8081/docType/RestDocType/";
 		List<Documenttype> docTypes= new ArrayList();
 		Iterable<Documenttype> callmeResponse= null;
-
-//		ObjectMapper mapper= new ObjectMapper();
-//		Map<String, String> headers= new HashMap<>();
-//		//headers.put(HttpUtils)
-//		String ids="";
 		
-		HttpHeaders headers= new HttpHeaders();
-		HttpEntity<List<Documenttype>> entity= new HttpEntity(docTypes,headers);
+		//HttpHeaders headers= new HttpHeaders();
+		//HttpEntity<List<Documenttype>> entity= new HttpEntity(docTypes,headers);
 		
-		ResponseEntity<DocTypeList> response=template.getForEntity(url, DocTypeList.class);
-//		ResponseEntity<DocTypeList> response=template.postForEntity(url, entity, DocTypeList.class);
+		ResponseEntity<Documenttype[]> response=template.getForEntity(url, Documenttype[].class);
 		
-		callmeResponse= response.getBody().getList();
+		Documenttype[] documenttype= response.getBody();
+		
+		for(int i=0;i<documenttype.length;i++) {
+			docTypes.add(documenttype[i]);
+		}
+		callmeResponse= docTypes;
 		
 		return callmeResponse;
+		//return null;
 	}
 	
 	public void createDocType(Documenttype dt) {
