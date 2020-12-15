@@ -74,7 +74,7 @@ public class NexusQuestionDelegate {
 	}
 	
 	public Iterable<Nexusquestion> getQuestionsPoll(long poll) {
-		String url="http://localhost:8081/nexusQuestion/RestNexusQuestion/poll/";
+		String url="http://localhost:8081/nexusQuestion/RestNexusQuestion/poll/"+poll;
 		List<Nexusquestion> questions= new ArrayList();
 		Iterable<Nexusquestion> callmeResponse=null;
 		
