@@ -2,7 +2,9 @@ package taller2.Palma.demo.REST;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import taller2.Palma.demo.model.Documenttype;
 import taller2.Palma.demo.model.Nexuspoll;
 import taller2.Palma.demo.model.Nexusquestion;
 import taller2.Palma.demo.service.NexusPollService;
@@ -35,8 +38,9 @@ public class NexusQuestionREST {
 			MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE
 	})
-	public void createNexuQuestion(@RequestBody Nexusquestion question) {
+	public ResponseEntity<Nexusquestion> createNexuQuestion(@RequestBody Nexusquestion question) {
 		nqs.addQuestion(question);
+		return new ResponseEntity<Nexusquestion>(question,HttpStatus.OK);
 	}
 	
 	@DeleteMapping(path="/{nexquesId}")
@@ -56,8 +60,8 @@ public class NexusQuestionREST {
 			MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE
 	})
-	public Nexusquestion getQuestion(@PathVariable long nexquesId) {
-		return nqs.getQuestion(nexquesId).get();
+	public ResponseEntity<Nexusquestion> getQuestion(@PathVariable long nexquesId) {
+		return new ResponseEntity<Nexusquestion>(nqs.getQuestion(nexquesId).get(),HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/")
@@ -65,10 +69,7 @@ public class NexusQuestionREST {
 		return nqs.getQuestions();
 	}
 	
-	@GetMapping(path="/poll/{nexpollId}",produces= {
-			MediaType.APPLICATION_JSON_VALUE,
-			MediaType.APPLICATION_XML_VALUE
-	})
+	@GetMapping(value="/poll/{nexpollId}")
 	public Iterable<Nexusquestion> getQuestionsbyPoll(@PathVariable long nexpollId){
 		Nexuspoll search=nps.getPoll(nexpollId).get();
 		return nqs.findQuestionsByPoll(search);

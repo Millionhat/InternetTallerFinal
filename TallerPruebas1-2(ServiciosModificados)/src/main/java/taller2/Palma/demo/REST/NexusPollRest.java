@@ -2,7 +2,9 @@ package taller2.Palma.demo.REST;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import taller2.Palma.demo.model.Nexuspoll;
+import taller2.Palma.demo.model.Nexusquestion;
 import taller2.Palma.demo.service.NexusPollService;
 
 @RestController
@@ -32,8 +35,9 @@ public class NexusPollRest {
 			MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE
 	})
-	public void addPoll(@RequestBody Nexuspoll poll) {
+	public ResponseEntity<Nexuspoll> addPoll(@RequestBody Nexuspoll poll) {
 		nps.addPoll(poll);
+		return new ResponseEntity<Nexuspoll>(poll,HttpStatus.OK);
 	}
 	
 	@DeleteMapping(path="/{nexpollId}")
@@ -56,7 +60,7 @@ public class NexusPollRest {
 			MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE
 	})
-	public Nexuspoll getPoll(@PathVariable long nexpollId) {
-		return nps.getPoll(nexpollId).get();
+	public ResponseEntity<Nexuspoll> getPoll(@PathVariable long nexpollId) {
+		return new ResponseEntity<Nexuspoll>(nps.getPoll(nexpollId).get(),HttpStatus.OK);
 	}
 }
