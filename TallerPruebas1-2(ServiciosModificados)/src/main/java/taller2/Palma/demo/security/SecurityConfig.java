@@ -41,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		.and().logout().permitAll()
 //				.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 		
+		httpSecurity.authorizeRequests().antMatchers("/**").permitAll();
+		
 //		httpSecurity.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
 //		.antMatchers("/index").permitAll().antMatchers("/person","/docs","/docinst","/docType").permitAll()
 //		.anyRequest().authenticated().and().httpBasic().and().logout().invalidateHttpSession(true).clearAuthentication(true)

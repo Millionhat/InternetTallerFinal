@@ -25,8 +25,7 @@
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label for="doctypeName" class="col-form-label">Document Type Name</label>
-							<input type="text" th:field="*{doctypeName}"
-								class="form-control" id="doctypeName"
+							<input type="text" th:field="*{doctypeName}" class="form-control" id="doctypeName"
 								placeholder="Document Type Name"> <span
 								th:if="${#fields.hasErrors('doctypeName')}"
 								th:errors="*{doctypeName}" class="text-danger"></span>
@@ -42,7 +41,7 @@
 					<div class="row">
 						<div class="col-md-4 mt-3">
 							<input type="submit" name="action" class="btn btn-primary"
-								value="Add Doc Type">
+								value="Add DocType">
 						</div>
 						<div class="col-md-3 mt-3">
 							<input type="reset" class="btn btn-secondary" value="Clear">

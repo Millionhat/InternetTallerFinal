@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import taller2.Palma.demo.exception.NonNullValueException;
 import taller2.Palma.demo.model.Documenttype;
@@ -27,8 +28,8 @@ public class DocumentTypeRest {
 		serv=s;
 	}
 	
-	@PostMapping("/")
-	public void createDocType(@RequestBody Documenttype dt) throws NonNullValueException {
+	@PostMapping(value="/")
+	public void createDocType(@RequestBody Documenttype dt, UriComponentsBuilder builder) throws NonNullValueException {
 		serv.addDT(dt);
 	}
 	
