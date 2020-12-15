@@ -60,7 +60,7 @@ public class DocumentTypeDelegate {
 		header.setContentType(MediaType.APPLICATION_JSON);
 		header.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
 		HttpEntity<Documenttype> entity= new HttpEntity<>(dt,header);
-		ResponseEntity<Documenttype> test = template.postForEntity(url, entity, Documenttype.class);
+		ResponseEntity<Documenttype> response = template.postForEntity(url, entity, Documenttype.class);
 		
 		
 		
@@ -72,13 +72,14 @@ public class DocumentTypeDelegate {
 		
 		Documenttype dt=new Documenttype();
 		
-		HttpHeaders header= new HttpHeaders();
-		HttpEntity<Documenttype> entity= new HttpEntity(dt,header);
+//		HttpHeaders header= new HttpHeaders();
+//		HttpEntity<Documenttype> entity= new HttpEntity(dt,header);
 		
 		ResponseEntity<Documenttype> response= template.getForEntity(url,Documenttype.class);
-//		ResponseEntity<Documenttype> response= template.postForEntity(url, entity, Documenttype.class);
 		
-		return response.getBody();
+		Documenttype documenttype= response.getBody();
+		
+		return documenttype;
 	}
 	
 	public void deleteDocType(long doctypeId) {

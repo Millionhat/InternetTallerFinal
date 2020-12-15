@@ -11,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
+import taller2.Palma.demo.model.Documenttype;
 import taller2.Palma.demo.model.Iddocumenttype;
 import taller2.Palma.demo.model.Institution;
 import taller2.Palma.demo.model.Userr;
@@ -40,10 +41,17 @@ public class TallerPruebas11Application {
 	@Bean
 	public CommandLineRunner register(InstitutionService service, UserService userve, IdDocTypeService ids) {
 		return (args)->{
+			
+			Documenttype dt=new Documenttype();
+			dt.setDoctypeName("Excel");
+			dt.setDoctypeIsactive("Verdadero");
+			
+			
 			Institution ins= new Institution();
 			//ins.setInstId(123123);
 			ins.setInstName("hola");
 			service.addInstituion(ins);
+			
 			
 			Institution ins2= new Institution();
 			//ins2.setInstId(321321);
