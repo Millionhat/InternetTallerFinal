@@ -1,6 +1,7 @@
 package taller2.Palma.demo;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -8,16 +9,24 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
+import taller2.Palma.demo.converter.VulnerabilityPollIdtoVulnerabilityPollConverter;
+import taller2.Palma.demo.delegate.VulnerabilityPollDelegate;
 import taller2.Palma.demo.model.Documenttype;
 import taller2.Palma.demo.model.Iddocumenttype;
 import taller2.Palma.demo.model.Institution;
 import taller2.Palma.demo.model.Userr;
+import taller2.Palma.demo.model.Vulnerabilityquestion;
 import taller2.Palma.demo.service.IdDocTypeService;
 import taller2.Palma.demo.service.InstitutionService;
 import taller2.Palma.demo.service.UserService;
+import taller2.Palma.demo.service.VulnerabilityQuestionService;
 
 @SpringBootApplication
 @ComponentScan
@@ -34,17 +43,25 @@ public class TallerPruebas11Application {
 		
 	}
 	
+	@Configuration
+	static class myConfig implements WebMvcConfigurer {
+		public void addFormatters(FormatterRegistry registry,VulnerabilityPollDelegate poll) {
+			registry.addConverter(new VulnerabilityPollIdtoVulnerabilityPollConverter(poll));
+		}
+	}
+	
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 	    return builder.build();
 	}
 	@Bean
-	public CommandLineRunner register(InstitutionService service, UserService userve, IdDocTypeService ids) {
+	public CommandLineRunner register(InstitutionService service, UserService userve, IdDocTypeService ids, VulnerabilityQuestionService vqs) {
 		return (args)->{
 			
 			Documenttype dt=new Documenttype();
 			dt.setDoctypeName("Excel");
 			dt.setDoctypeIsactive("Verdadero");
+			
 			
 			
 			Institution ins= new Institution();
@@ -74,6 +91,12 @@ public class TallerPruebas11Application {
 			user.setUserName("m");
 			user.setUserPassword("{noop}123");
 			userve.save(user);
+			
+			Vulnerabilityquestion vul= new Vulnerabilityquestion();
+			vul.setVulquesName("test");
+			vqs.addQuestion(vul);
+			List<Vulnerabilityquestion> q=(List<Vulnerabilityquestion>) vqs.getQuestions();
+			System.out.print(q.size());
 		};
 	}
 
