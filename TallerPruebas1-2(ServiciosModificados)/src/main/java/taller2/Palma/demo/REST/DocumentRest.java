@@ -1,5 +1,7 @@
 package taller2.Palma.demo.REST;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -40,6 +42,8 @@ public class DocumentRest {
 			MediaType.APPLICATION_XML_VALUE
 	})
 	public ResponseEntity<Documentt> createDocument(@RequestBody Documentt doc) {
+		
+		
 		serv.addDoc(doc);
 		return new ResponseEntity<Documentt>(doc,HttpStatus.OK);
 	}
@@ -66,17 +70,20 @@ public class DocumentRest {
 	}
 	
 	@GetMapping(value="/")
-	public Iterable<Documentt> getDocs(){
+	public List<Documentt> getDocs(){
+		
 		return serv.getDocs();
 	}
 	
 	@GetMapping(value="/docType/{doctypeId}")
-	public Iterable<Documentt> getDocsByType(@PathVariable long doctypeId){	
-		return serv.findDocsByType(dts.getDocType(doctypeId).get());
+	public List<Documentt> getDocsByType(@PathVariable long doctypeId){	
+
+		List<Documentt> response=serv.findDocsByType(dts.getDocType(doctypeId).get());
+		return response;
 	}
 	
 	@GetMapping(value="/person/{persId}")
-	public Iterable<Documentt> getDocsByPerson(@PathVariable long persId){
+	public List<Documentt> getDocsByPerson(@PathVariable long persId){
 		return serv.findDocs(ps.getPerson(persId).get());
 	}
 }

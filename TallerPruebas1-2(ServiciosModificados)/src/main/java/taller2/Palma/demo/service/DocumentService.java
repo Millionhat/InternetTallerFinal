@@ -1,5 +1,6 @@
 package taller2.Palma.demo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -38,14 +39,14 @@ public class DocumentService implements DocumentServiceInterface {
 		// TODO Auto-generated method stub
 		repo.delete(test);
 	}
-	public Iterable<Documentt> getDocs(){
+	public List<Documentt> getDocs(){
 		return repo.findAll();
 	}
 	
-	public Iterable<Documentt> findDocs(Person person){
+	public List<Documentt> findDocs(Person person){
 		return repo.findByPerson(person);
 	}
-	public Iterable<Documentt> findDocsByType(Documenttype type){
+	public List<Documentt> findDocsByType(Documenttype type){
 		return repo.findByType(type);
 	}
 }
