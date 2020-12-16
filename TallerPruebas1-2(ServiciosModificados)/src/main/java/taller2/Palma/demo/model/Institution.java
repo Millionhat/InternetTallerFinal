@@ -3,6 +3,9 @@ package taller2.Palma.demo.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 /**
@@ -72,6 +75,7 @@ public class Institution implements Serializable {
 
 	// bi-directional many-to-one association to Person
 	@OneToMany(mappedBy = "institution")
+	@JsonIgnore
 	private List<Person> persons;
 
 

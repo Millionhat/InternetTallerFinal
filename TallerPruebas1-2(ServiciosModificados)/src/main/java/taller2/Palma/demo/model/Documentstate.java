@@ -3,6 +3,9 @@ package taller2.Palma.demo.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -29,6 +32,7 @@ public class Documentstate implements Serializable {
 
 	//bi-directional many-to-one association to Docstateinstance
 	@OneToMany(mappedBy="documentstate")
+	@JsonIgnore
 	private List<Docstateinstance> docstateinstances;
 
 	//bi-directional many-to-one association to Documenttype

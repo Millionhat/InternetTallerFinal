@@ -19,34 +19,29 @@ public class UserDAO implements IUserDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	@Transactional
+
 	@Override
 	public void delete(Userr entity) {
 		entityManager.remove(entity);
 
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public List<Userr> findAll() {
 		String jpql= "Select a from Userr a";
 		return entityManager.createQuery(jpql).getResultList();
 	}
-
-	@Transactional(readOnly=true)
-	@Override
 	public Userr findById(long userId) {
 		return entityManager.find(Userr.class, userId);
 	}
 
-	@Transactional
 	@Override
 	public void save(Userr entity) {
 		entityManager.persist(entity);
 
 	}
 
-	@Transactional
+
 	@Override
 	public void update(Userr entity) {
 		entityManager.merge(entity);

@@ -1,6 +1,7 @@
 package taller2.Palma.demo.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import taller2.Palma.demo.DAOimp.DocStateDAO;
 import taller2.Palma.demo.model.Docstateinstance;
@@ -17,11 +18,13 @@ public class DocumentStateService {
 		this.repo=repo;
 	}
 
+	@Transactional
 	public Documentstate addDSI(Documentstate ds) {
 		repo.save(ds);
 		return ds;
 	}
 
+	@Transactional
 	public Documentstate update(Documentstate ds) {
 		Documentstate edit= repo.findById(ds.getDocstatId());
 		edit=ds;

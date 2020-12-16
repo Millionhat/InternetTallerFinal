@@ -23,34 +23,30 @@ public class DocStateDAO implements IDocumentStateDAO{
 //		entityManager=manager;
 //	}
 	
-	@Transactional
+
 	@Override
 	public void delete(Documentstate entity) {
 		entityManager.remove(entity);
 		
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public List<Documentstate> findAll() {
 		String jpql="Select a from Documentstate a";
 		return entityManager.createQuery(jpql).getResultList();
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public Documentstate findById(long docstatId) {
 		return entityManager.find(Documentstate.class,docstatId);
 	}
 
-	@Transactional
 	@Override
 	public void save(Documentstate entity) {
 		entityManager.persist(entity);
 		
 	}
 
-	@Transactional
 	@Override
 	public void update(Documentstate entity) {
 		entityManager.merge(entity);

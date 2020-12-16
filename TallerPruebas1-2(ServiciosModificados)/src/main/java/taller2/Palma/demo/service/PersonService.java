@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import taller2.Palma.demo.DAOimp.PersonDAO;
 import taller2.Palma.demo.exception.NonNullValueException;
@@ -24,7 +25,7 @@ public class PersonService implements PersonServiceInterface{
 		this.repo=repo;
 	}
 
-	
+	@Transactional
 	public Person addPerson(Person perso) throws NonNullValueException{
 		if(perso.getPersName()=="" || perso.getPersName()==null || perso.getPersLastname()==""||perso.getPersLastname()==null) {
 			throw new NonNullValueException();
@@ -33,11 +34,13 @@ public class PersonService implements PersonServiceInterface{
 		return perso;
 	}
 
+	@Transactional(readOnly = true)
 	public Optional<Person> getPerson(Long person) throws NoSuchElementException{
 		return Optional.of(repo.findById(person));
 		
 	}
 
+	@Transactional
 	public Person update(Person add) throws NonNullValueException {
 		// TODO Auto-generated method stub
 		if(add.getPersName()!=""||add.getPersName()!=null||add.getPersLastname()!=""||add.getPersLastname()!=null) {
@@ -50,11 +53,13 @@ public class PersonService implements PersonServiceInterface{
 		}
 	}
 	
+	@Transactional
 	public void delete(Long person) {
 		Person deleted=repo.findById(person);
 		repo.delete(deleted);
 	}
 	
+	@Transactional(readOnly = true)
 	public List<Person> getPeople(){
 		return repo.findAll();
 	}

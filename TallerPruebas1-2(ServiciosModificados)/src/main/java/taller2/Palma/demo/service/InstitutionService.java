@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import taller2.Palma.demo.DAOimp.InstitutionDAO;
 import taller2.Palma.demo.exception.NonNullValueException;
@@ -22,20 +23,24 @@ public class InstitutionService implements InstitutionServiceInterface{
 		insRepo=repo;
 	}
 
+	@Transactional(readOnly=true)
 	public Optional<Institution> getInstitution(Long institution) throws NoSuchElementException {
 		
 		return Optional.of(insRepo.findById(institution));
 	}
 	
+	@Transactional
 	public Institution addInstituion(Institution ins) {
 		insRepo.save(ins);
 		return ins;
 	}
 	
+	@Transactional(readOnly=true)
 	public List<Institution> getInstitutions(){
 		return insRepo.findAll();
 	}
 
+	@Transactional
 	@Override
 	public Institution update(Institution ins) {
 		// TODO Auto-generated method stub
@@ -45,6 +50,7 @@ public class InstitutionService implements InstitutionServiceInterface{
 		return editIsn;
 	}
 
+	@Transactional
 	@Override
 	public void delete(Institution ins) {
 		// TODO Auto-generated method stub

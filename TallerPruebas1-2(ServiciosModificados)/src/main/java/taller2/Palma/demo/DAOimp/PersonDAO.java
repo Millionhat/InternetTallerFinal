@@ -24,41 +24,37 @@ public class PersonDAO implements IPersonDAO{
 //		entityManager = manager;
 //	}
 	
-	@Transactional
+
 	@Override
 	public void delete(Person entity) {
 		entityManager.remove(entity);
 		
 	}
 
-	@Transactional(readOnly = true)
+
 	@Override
 	public List<Person> findAll() {
 		String jpql ="SELECT p FROM Person p";
 		return entityManager.createQuery(jpql).getResultList();
 	}
 
-	@Transactional
 	@Override
 	public Person findById(long persId) {
 		return entityManager.find(Person.class, persId);
 	}
 	
-	@Transactional
 	@Override
 	public void save(Person entity) {
 		entityManager.persist(entity);
 		
 	}
 
-	@Transactional
 	@Override
 	public void update(Person entity) {
 		entityManager.merge(entity);
 		
 	}
-
-	@Transactional(readOnly = true)
+	
 	public List<Person> findByName(String name){
 		String jpql= "SELECT p FROM Person p WHERE p.persName= :name";
 		Query q= entityManager.createQuery(jpql);
@@ -67,7 +63,6 @@ public class PersonDAO implements IPersonDAO{
 	}
 	
 
-	@Transactional(readOnly = true)
 	public List<Person> findByLastName(String lname){
 		String jpql="SELECT p FROM Person p WHERE p.persLastname= :lname";
 		Query q= entityManager.createQuery(jpql);
@@ -76,7 +71,6 @@ public class PersonDAO implements IPersonDAO{
 	}
 	
 
-	@Transactional(readOnly = true)
 	public List<Person> findByEmail(String mail) {
 		String jpql="SELECT p FROM Person p WHERE p.persEmail= :mail";
 		Query q= entityManager.createQuery(jpql);
