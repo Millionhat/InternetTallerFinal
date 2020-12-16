@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import taller2.Palma.demo.DAOimp.PersonDAO;
 import taller2.Palma.demo.exception.NonNullValueException;
@@ -24,7 +25,7 @@ public class PersonService implements PersonServiceInterface{
 		this.repo=repo;
 	}
 
-	
+	@Transactional
 	public Person addPerson(Person perso) throws NonNullValueException{
 		if(perso.getPersName()=="" || perso.getPersName()==null || perso.getPersLastname()==""||perso.getPersLastname()==null) {
 			throw new NonNullValueException();

@@ -44,7 +44,6 @@ public class PersonDAO implements IPersonDAO{
 		return entityManager.find(Person.class, persId);
 	}
 	
-	@Transactional
 	@Override
 	public void save(Person entity) {
 		entityManager.persist(entity);

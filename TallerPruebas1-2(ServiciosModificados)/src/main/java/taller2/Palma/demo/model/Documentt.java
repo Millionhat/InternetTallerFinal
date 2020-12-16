@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 import java.util.List;
@@ -37,6 +39,7 @@ public class Documentt implements Serializable {
 	private String docUrl;
 
 	//bi-directional many-to-one association to Docstateinstance
+	@JsonIgnore
 	@OneToMany(mappedBy="documentt")
 	private List<Docstateinstance> docstateinstances;
 
