@@ -1,6 +1,7 @@
 package com.example.demo.Rest;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,6 +23,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -87,10 +89,40 @@ public class TestDocumentTypeRest {
 		
 		String documenttype=  "{\"doctypeId\":\"1\",\"doctypeIsactive\":\"Verdadero\",\"doctypeName\":\"Excel\",\"instInstId\":\"null\",\"documentstates\":\"null\",\"documentts\":\"null\"}";
 		
-		when(service.addDT(dt)).thenReturn(dt);
+		when(service.addDT(any())).thenReturn(dt);
 		mvc.perform(
 				MockMvcRequestBuilders.post("/").content(documenttype).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated());
+	}
+	
+	@Test
+	public void updateDocumentTypes() throws Exception {
+		Documenttype dt=new Documenttype();
+		dt.setDoctypeName("Excel");
+		dt.setDoctypeIsactive("Verdadero");
+		
+		String documenttype=  "{\"doctypeId\":\"1\",\"doctypeIsactive\":\"Verdadero\",\"doctypeName\":\"Excel\",\"instInstId\":\"null\",\"documentstates\":\"null\",\"documentts\":\"null\"}";
+		
+		when(service.update(any())).thenReturn(dt);
+		
+		
+		MvcResult result =mvc.perform(
+				MockMvcRequestBuilders.put("/"+ dt.getDoctypeId()).content(documenttype).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn();
+		
+		JSONAssert.assertEquals(documenttype, result.getResponse().getContentAsString(), false);
+		
+	}
+	
+	@Test
+	public void deleteDocumentType() throws Exception {
+		Documenttype dt=new Documenttype();
+		dt.setDoctypeName("Excel");
+		dt.setDoctypeIsactive("Verdadero");
+		
+		doNothing().when(service).delete(any());
+		
+		mvc.perform( MockMvcRequestBuilders.delete("/"+ dt.getDoctypeId()).accept(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
 	}
 	
 }
