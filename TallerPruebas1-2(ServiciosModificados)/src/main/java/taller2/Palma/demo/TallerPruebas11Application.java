@@ -23,6 +23,7 @@ import taller2.Palma.demo.model.Iddocumenttype;
 import taller2.Palma.demo.model.Institution;
 import taller2.Palma.demo.model.Userr;
 import taller2.Palma.demo.model.Vulnerabilityquestion;
+import taller2.Palma.demo.service.DocumentTypeService;
 import taller2.Palma.demo.service.IdDocTypeService;
 import taller2.Palma.demo.service.InstitutionService;
 import taller2.Palma.demo.service.UserService;
@@ -55,13 +56,13 @@ public class TallerPruebas11Application {
 	    return builder.build();
 	}
 	@Bean
-	public CommandLineRunner register(InstitutionService service, UserService userve, IdDocTypeService ids, VulnerabilityQuestionService vqs) {
+	public CommandLineRunner register(InstitutionService service, UserService userve, IdDocTypeService ids, DocumentTypeService dt, VulnerabilityQuestionService vqs) {
 		return (args)->{
 			
-			Documenttype dt=new Documenttype();
-			dt.setDoctypeName("Excel");
-			dt.setDoctypeIsactive("Verdadero");
-			
+			Documenttype dt1 =new Documenttype();
+			dt1.setDoctypeName("Excel");
+			dt1.setDoctypeIsactive("Verdadero");
+			dt.addDT(dt1);
 			
 			
 			Institution ins= new Institution();
