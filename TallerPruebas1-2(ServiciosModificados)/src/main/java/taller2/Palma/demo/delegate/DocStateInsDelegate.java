@@ -15,7 +15,6 @@ import taller2.Palma.demo.model.Docstateinstance;
 import taller2.Palma.demo.model.Documentt;
 import taller2.Palma.demo.model.Documenttype;
 import taller2.Palma.demo.wrapper.DSIList;
-import taller2.Palma.demo.wrapper.DocumenttList;
 
 @Component
 public class DocStateInsDelegate {
@@ -88,8 +87,14 @@ public class DocStateInsDelegate {
 		
 		HttpHeaders headers= new HttpHeaders();
 		
-		ResponseEntity<DocumenttList> response= template.getForEntity(url, DocumenttList.class);
-		callmeResponse= response.getBody().getList();
+		ResponseEntity<Documentt[]> response= template.getForEntity(url, Documentt[].class);
+		
+		Documentt[] docs=response.getBody();
+		for(int i=0;i<docs.length;i++) {
+			documents.add(docs[i]);
+		}
+		
+		callmeResponse= documents;
 		
 		return callmeResponse;
 	}
