@@ -93,6 +93,7 @@ public class TallerPruebas11Application {
 			userve.save(user);
 			
 			Vulnerabilityquestion vul= new Vulnerabilityquestion();
+			//vul.setVulquesId(1);
 			vul.setVulquesName("test");
 			vqs.addQuestion(vul);
 			List<Vulnerabilityquestion> q=(List<Vulnerabilityquestion>) vqs.getQuestions();
