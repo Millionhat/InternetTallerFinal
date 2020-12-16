@@ -1,5 +1,7 @@
 package taller2.Palma.demo.REST;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -49,10 +51,10 @@ public class IdDocTypeRest {
 		}
 	}
 	
-//	@PutMapping("/{iddoctypeId}")
-//	public void editIdDocType(@PathVariable long iddocumentId,@RequestBody Iddocumenttype idt) {
-//		serv.
-//	}
+	@PutMapping("/{iddoctypeId}")
+	public void editIdDocType(@PathVariable long iddocumentId,@RequestBody Iddocumenttype idt) {
+		serv.updateIDT(idt);
+	}
 	
 	@GetMapping(path="/{iddocumenttypeId}",produces= {
 			MediaType.APPLICATION_JSON_VALUE,
@@ -63,12 +65,13 @@ public class IdDocTypeRest {
 	}
 	
 	@GetMapping(value="/")
-	public Iterable<Iddocumenttype> getTypes(){
+	public List<Iddocumenttype> getTypes(){
+
 		return serv.getIDTS();
 	}
 	
-	@PutMapping("/{iddoctypeId}")
-	public void updateIDT(@PathVariable long iddoctypeId,@RequestBody Iddocumenttype idt) {
-		serv.updateIDT(idt);
-	}
+//	@PutMapping("/{iddoctypeId}")
+//	public void updateIDT(@PathVariable long iddoctypeId,@RequestBody Iddocumenttype idt) {
+//		serv.updateIDT(idt);
+//	}
 }
