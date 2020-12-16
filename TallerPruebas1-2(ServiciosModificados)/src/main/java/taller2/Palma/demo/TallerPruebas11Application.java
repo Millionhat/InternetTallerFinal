@@ -18,11 +18,14 @@ import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import taller2.Palma.demo.converter.VulnerabilityPollIdtoVulnerabilityPollConverter;
 import taller2.Palma.demo.delegate.VulnerabilityPollDelegate;
+import taller2.Palma.demo.model.Documentt;
 import taller2.Palma.demo.model.Documenttype;
 import taller2.Palma.demo.model.Iddocumenttype;
 import taller2.Palma.demo.model.Institution;
+import taller2.Palma.demo.model.Person;
 import taller2.Palma.demo.model.Userr;
 import taller2.Palma.demo.model.Vulnerabilityquestion;
+import taller2.Palma.demo.service.DocumentService;
 import taller2.Palma.demo.service.DocumentTypeService;
 import taller2.Palma.demo.service.IdDocTypeService;
 import taller2.Palma.demo.service.InstitutionService;
@@ -56,8 +59,11 @@ public class TallerPruebas11Application {
 	    return builder.build();
 	}
 	@Bean
-	public CommandLineRunner register(InstitutionService service, UserService userve, IdDocTypeService ids, DocumentTypeService dt, VulnerabilityQuestionService vqs) {
+	public CommandLineRunner register(InstitutionService service, UserService userve, IdDocTypeService ids, DocumentTypeService dt, VulnerabilityQuestionService vqs,DocumentService ds) {
 		return (args)->{
+			
+			
+			
 			
 			Documenttype dt1 =new Documenttype();
 			dt1.setDoctypeName("Excel");
@@ -69,6 +75,13 @@ public class TallerPruebas11Application {
 			//ins.setInstId(123123);
 			ins.setInstName("hola");
 			service.addInstituion(ins);
+			
+			
+			Documentt do1= new Documentt();
+			do1.setDocName("cedula");
+			do1.setDocumenttype(dt1);
+		
+			ds.addDoc(do1);
 			
 			
 			Institution ins2= new Institution();

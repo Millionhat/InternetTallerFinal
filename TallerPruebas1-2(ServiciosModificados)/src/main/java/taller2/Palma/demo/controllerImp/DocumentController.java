@@ -37,6 +37,7 @@ public class DocumentController {
 	
 	public DocumentController(DocumentDelegate doc,PersonDelegate per,DocumentTypeDelegate dts, DocStateInsDelegate dsi) {
 		docs=doc;
+		
 		this.per=per;
 		this.dts=dts;
 		this.dsi=dsi;
@@ -57,9 +58,8 @@ public class DocumentController {
 	}
 	
 	@PostMapping("/docs/add")
-	public String saveDoc(@RequestParam(value="action",required=true)
-			String action, @Validated(add.class) @ModelAttribute Documentt documentt, BindingResult bind,
-			Model model) {
+	public String saveDoc(@ModelAttribute Documentt documentt, BindingResult bind,
+			Model model ,@RequestParam(value="action",required=true)String action) {
 		if(!action.equals("Cancel")) {
 			if(bind.hasErrors()) {
 				model.addAttribute("people",per.getGroupPersonData());

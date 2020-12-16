@@ -32,6 +32,7 @@ public class DocumentRest {
 	public DocumentRest(DocumentService s, DocumentTypeService d, PersonService pers) {
 		serv=s;
 		dts=d;
+		ps=pers;
 	}
 	
 	@PostMapping(path="/",consumes= {
@@ -71,7 +72,6 @@ public class DocumentRest {
 	
 	@GetMapping(value="/")
 	public List<Documentt> getDocs(){
-		
 		return serv.getDocs();
 	}
 	
