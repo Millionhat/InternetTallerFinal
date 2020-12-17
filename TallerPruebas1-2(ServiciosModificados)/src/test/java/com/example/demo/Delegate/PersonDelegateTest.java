@@ -27,8 +27,6 @@ import taller2.Palma.demo.model.Person;
 @Rollback(false)
 public class PersonDelegateTest {
 	
-	@Autowired
-	private MockMvc mvc;
 	
 	@Mock
 	private PersonDelegate delegate;
