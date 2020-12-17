@@ -39,7 +39,6 @@ public class Documentt implements Serializable {
 	private String docUrl;
 
 	//bi-directional many-to-one association to Docstateinstance
-	@JsonIgnore
 	@OneToMany(mappedBy="documentt")
 	@JsonIgnore
 	private List<Docstateinstance> docstateinstances;
