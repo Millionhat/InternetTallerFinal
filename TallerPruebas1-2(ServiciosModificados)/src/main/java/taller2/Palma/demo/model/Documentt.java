@@ -6,6 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -39,7 +42,7 @@ public class Documentt implements Serializable {
 	private String docUrl;
 
 	//bi-directional many-to-one association to Docstateinstance
-	@OneToMany(mappedBy="documentt")
+	@OneToMany(mappedBy="documentt",cascade=CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Docstateinstance> docstateinstances;
 
@@ -47,12 +50,14 @@ public class Documentt implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="DOCTYPE_DOCTYPE_ID")
 	@NotNull(groups={add.class,update.class})
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Documenttype documenttype;
 
 	//bi-directional many-to-one association to Person
 	@ManyToOne
 	@JoinColumn(name="PERS_PERS_ID")
 	@NotNull(groups={add.class,update.class})
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Person person;
 
 	public Documentt() {

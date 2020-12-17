@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
@@ -44,11 +46,13 @@ public class Docstateinstance implements Serializable {
 	//bi-directional many-to-one association to Documentstate
 	@ManyToOne
 	@JoinColumn(name="DOCSTAT_DOCSTAT_ID")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Documentstate documentstate;
 
 	//bi-directional many-to-one association to Documentt
 	@ManyToOne
 	@JoinColumn(name="DOC_DOC_ID")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@NotNull(groups={add.class,update.class})
 	private Documentt documentt;
 
@@ -56,6 +60,7 @@ public class Docstateinstance implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="PERS_PERS_ID")
 	@NotNull(groups={add.class,update.class})
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Person person;
 
 	public Docstateinstance() {

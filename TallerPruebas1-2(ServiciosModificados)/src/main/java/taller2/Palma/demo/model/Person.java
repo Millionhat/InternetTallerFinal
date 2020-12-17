@@ -92,12 +92,12 @@ public class Person implements Serializable {
 	private List<Contactfence> contactfences;
 
 	//bi-directional many-to-one association to Docstateinstance
-	@OneToMany(mappedBy="person")
+	@OneToMany(mappedBy="person",cascade=CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Docstateinstance> docstateinstances;
 
 	//bi-directional many-to-one association to Documentt
-	@OneToMany(mappedBy="person")
+	@OneToMany(mappedBy="person",cascade=CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Documentt> documentts;
 
