@@ -3,6 +3,7 @@ package taller2.Palma.demo.service;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import taller2.Palma.demo.DAOimp.DocInsStateDAO;
 import taller2.Palma.demo.exception.NonValidDateException;
@@ -20,6 +21,7 @@ public class DocStateInstanceService implements DocStateInsServiceInterface{
 		repo=r;
 	}
 
+	@Transactional
 	public Docstateinstance addDTS(Docstateinstance test) throws NonValidDateException{
 		// TODO Auto-generated method stub
 		if(test.getDocstatinsStartdate().compareTo(test.getDocstatinsEnddate())<=0) {
@@ -30,6 +32,7 @@ public class DocStateInstanceService implements DocStateInsServiceInterface{
 		}
 	}
 
+	@Transactional
 	public Docstateinstance update(Docstateinstance dsi) throws NonValidDateException{
 		// TODO Auto-generated method stub
 		if(dsi.getDocstatinsStartdate().compareTo(dsi.getDocstatinsEnddate())<=0) {
@@ -42,19 +45,23 @@ public class DocStateInstanceService implements DocStateInsServiceInterface{
 		}
 	}
 
+	@Transactional
 	public void delete(Docstateinstance dsi) {
 		repo.delete(dsi);
 	}
 
+	@Transactional(readOnly=true)
 	public Optional<Docstateinstance> getDocInstance(Long docstatinsId) {
 		
 		return Optional.of(repo.findById(docstatinsId));
 	}
 	
+	@Transactional(readOnly=true)
 	public Iterable<Docstateinstance> getDocInstances(){
 		return repo.findAll();
 	}
 	
+	@Transactional(readOnly=true)
 	public Iterable<Docstateinstance> getInstancesForDoc(Documentt doc){
 		return repo.findByDocumentt(doc);
 	}

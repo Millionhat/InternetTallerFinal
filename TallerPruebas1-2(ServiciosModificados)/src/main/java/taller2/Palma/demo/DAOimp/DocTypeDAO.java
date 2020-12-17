@@ -22,34 +22,30 @@ public class DocTypeDAO implements IDocumentTypeDAO{
 //	public DocTypeDAO(EntityManager manager) {
 //		entityManager = manager;
 //	}
-	@Transactional
+
 	@Override
 	public void delete(Documenttype entity) {
 		entityManager.remove(entity);
 		
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public List<Documenttype> findAll() {
 		String jpql = "Select a from Documenttype a";
 		return entityManager.createQuery(jpql).getResultList();
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public Documenttype findById(long doctypeId) {
 		return entityManager.find(Documenttype.class, doctypeId);
 	}
 
-	@Transactional
 	@Override
 	public void save(Documenttype entity) {
 		entityManager.persist(entity);
 		
 	}
 
-	@Transactional
 	@Override
 	public void update(Documenttype entity) {
 		entityManager.merge(entity);

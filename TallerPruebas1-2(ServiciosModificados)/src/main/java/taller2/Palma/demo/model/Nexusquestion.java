@@ -3,6 +3,9 @@ package taller2.Palma.demo.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -43,10 +46,12 @@ public class Nexusquestion implements Serializable {
 
 	//bi-directional many-to-one association to Nexusweightbyday
 	@OneToMany(mappedBy="nexusquestion")
+	@JsonIgnore
 	private List<Nexusweightbyday> nexusweightbydays;
 
 	//bi-directional many-to-one association to UstPersonNexus
 	@OneToMany(mappedBy="nexusquestion")
+	@JsonIgnore
 	private List<UstPersonNexus> ustPersonNexuses;
 
 	public Nexusquestion() {

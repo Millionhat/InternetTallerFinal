@@ -14,8 +14,6 @@ import org.springframework.web.client.RestTemplate;
 import taller2.Palma.demo.model.Documentt;
 import taller2.Palma.demo.model.Documenttype;
 import taller2.Palma.demo.model.Person;
-import taller2.Palma.demo.wrapper.DocumenttList;
-
 @Component
 public class DocumentDelegate {
 	

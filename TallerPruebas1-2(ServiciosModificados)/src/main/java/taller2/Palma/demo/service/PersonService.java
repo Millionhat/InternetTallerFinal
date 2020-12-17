@@ -34,11 +34,13 @@ public class PersonService implements PersonServiceInterface{
 		return perso;
 	}
 
+	@Transactional(readOnly = true)
 	public Optional<Person> getPerson(Long person) throws NoSuchElementException{
 		return Optional.of(repo.findById(person));
 		
 	}
 
+	@Transactional
 	public Person update(Person add) throws NonNullValueException {
 		// TODO Auto-generated method stub
 		if(add.getPersName()!=""||add.getPersName()!=null||add.getPersLastname()!=""||add.getPersLastname()!=null) {
@@ -51,11 +53,13 @@ public class PersonService implements PersonServiceInterface{
 		}
 	}
 	
+	@Transactional
 	public void delete(Long person) {
 		Person deleted=repo.findById(person);
 		repo.delete(deleted);
 	}
 	
+	@Transactional(readOnly = true)
 	public List<Person> getPeople(){
 		return repo.findAll();
 	}

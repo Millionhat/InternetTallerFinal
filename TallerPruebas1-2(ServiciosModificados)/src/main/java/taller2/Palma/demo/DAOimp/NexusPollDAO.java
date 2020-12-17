@@ -19,14 +19,14 @@ public class NexusPollDAO implements INexusPollDAO{
 	@PersistenceContext
 	private EntityManager manager;
 
-	@Transactional
+
 	@Override
 	public void delete(Nexuspoll poll) {
 		// TODO Auto-generated method stub
 		manager.remove(poll);
 	}
 
-	@Transactional(readOnly=true)
+
 	@Override
 	public List<Nexuspoll> findAll() {
 		// TODO Auto-generated method stub
@@ -34,14 +34,12 @@ public class NexusPollDAO implements INexusPollDAO{
 		return manager.createQuery(jpql).getResultList();
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public Nexuspoll findById(long nexpollId) {
 		// TODO Auto-generated method stub
 		return manager.find(Nexuspoll.class, nexpollId);
 	}
 
-	@Transactional
 	@Override
 	public void save(Nexuspoll poll) {
 		// TODO Auto-generated method stub

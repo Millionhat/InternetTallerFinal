@@ -22,14 +22,13 @@ public class NexusQuestionDAO implements INexusquestionDAO {
 	@PersistenceContext
 	private EntityManager manager;
 
-	@Transactional
 	@Override
 	public void delete(Nexusquestion question) {
 		// TODO Auto-generated method stub
 		manager.remove(question);
 	}
 
-	@Transactional(readOnly=true)
+
 	@Override
 	public List<Nexusquestion> findAll() {
 		// TODO Auto-generated method stub
@@ -37,28 +36,24 @@ public class NexusQuestionDAO implements INexusquestionDAO {
 		return manager.createQuery(jpql).getResultList();
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public Nexusquestion findById(long nexquesId) {
 		// TODO Auto-generated method stub
 		return manager.find(Nexusquestion.class, nexquesId);
 	}
 
-	@Transactional
 	@Override
 	public void save(Nexusquestion question) {
 		// TODO Auto-generated method stub
 		manager.persist(question);
 	}
 
-	@Transactional
 	@Override
 	public void update(Nexusquestion question) {
 		// TODO Auto-generated method stub
 		manager.merge(question);
 	}
 
-	@Transactional
 	@Override
 	public List<Nexusquestion> findByPoll(Nexuspoll poll) {
 		// TODO Auto-generated method stub

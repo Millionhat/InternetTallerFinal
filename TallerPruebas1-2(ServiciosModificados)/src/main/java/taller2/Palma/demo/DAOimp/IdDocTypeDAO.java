@@ -23,34 +23,29 @@ public class IdDocTypeDAO implements IIdDocTypeDAO {
 //		entityManager=manager;
 //	}
 	
-	@Transactional
 	@Override
 	public void delete(Iddocumenttype entity) {
 		entityManager.remove(entity);
 
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public List<Iddocumenttype> findAll() {
 		String jpql = "Select a from Iddocumenttype a";
 		return entityManager.createQuery(jpql).getResultList();
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public Iddocumenttype findByI(long iddoctypeId) {
 		return entityManager.find(Iddocumenttype.class, iddoctypeId);
 	}
 
-	@Transactional
 	@Override
 	public void save(Iddocumenttype entity) {
 		entityManager.persist(entity);
 
 	}
 
-	@Transactional
 	@Override
 	public void update(Iddocumenttype entity) {
 		entityManager.merge(entity);

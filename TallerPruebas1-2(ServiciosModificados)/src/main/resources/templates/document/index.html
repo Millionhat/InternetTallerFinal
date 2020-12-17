@@ -39,7 +39,7 @@
 								<td class="text-info" th:text="${doc.docId}"></td>
 								<td class="text-info" th:text="${doc.docName}"></td>
 								<td class="text-info" th:text="${doc.documenttype.doctypeName}"></td>
-								<td class="text-info" th:text="${doc.person.persName}"></td>
+								<td class="text-info" th:text="${doc.person}"></td>
 								<td><a th:href="@{/docs/view/{id}(id=${doc.docId})}"
 									class="btn btn-primary"><i class="fas fa-eye ml-2"></i></a></td>
 								<td><a th:href="@{/docs/edit/{id}(id=${doc.docId})}"

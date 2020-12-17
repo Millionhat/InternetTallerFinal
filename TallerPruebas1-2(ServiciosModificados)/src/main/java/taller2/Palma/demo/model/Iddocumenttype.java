@@ -2,6 +2,9 @@ package taller2.Palma.demo.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -29,6 +32,7 @@ public class Iddocumenttype implements Serializable {
 
 	//bi-directional many-to-one association to Person
 	@OneToMany(mappedBy="iddocumenttype")
+	@JsonIgnore
 	private List<Person> persons;
 
 	public Iddocumenttype() {

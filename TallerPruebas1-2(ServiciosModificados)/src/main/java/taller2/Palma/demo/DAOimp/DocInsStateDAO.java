@@ -29,41 +29,37 @@ public class DocInsStateDAO implements IDocumentInsStateDAO{
 //		entityManager=manager;
 //	}
 	
-	@Transactional
 	@Override
 	public void delete(Docstateinstance entity) {
 		entityManager.remove(entity);
 		
 	}
 
-	@Transactional(readOnly=true)
+
 	@Override
 	public List<Docstateinstance> findAll() {
 		String jpql= "Select a from Docstateinstance a";
 		return entityManager.createQuery(jpql).getResultList();
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public Docstateinstance findById(long docstatinsId) {
 		return entityManager.find(Docstateinstance.class, docstatinsId);
 	}
 	
-	@Transactional
+
 	@Override
 	public void save(Docstateinstance entity) {
 		entityManager.persist(entity);
 		
 	}
 
-	@Transactional
 	@Override
 	public void update(Docstateinstance entity) {
 		entityManager.merge(entity);
 		
 	}
 	
-	@Transactional(readOnly=true)
 	public List<Docstateinstance> findByDateRange(Date first, Date end){		
 		String jpql="SELECT a FROM Docstateinstance a WHERE (a.docstatinsStartdate BETWEEN ?1 AND ?2)"
 				+" AND (a.docstatinsEnddate BETWEEN ?1 AND ?2)";
@@ -74,7 +70,6 @@ public class DocInsStateDAO implements IDocumentInsStateDAO{
 		return q.getResultList();
 	}
 
-	@Transactional(readOnly=true)
 	public List<Docstateinstance> findByDocumentt(Documentt doc) {
 		String jpql="SELECT a FROM Docstateinstance a WHERE a.docId = :doc";
 		Query q=entityManager.createQuery(jpql);
@@ -82,7 +77,6 @@ public class DocInsStateDAO implements IDocumentInsStateDAO{
 		return q.getResultList();
 	}
 	
-	@Transactional(readOnly=true)
 	public List<Docstateinstance> findChanged(){
 		ZoneId zone=ZoneId.systemDefault();
 		LocalDate now= LocalDate.now().minusDays(14);

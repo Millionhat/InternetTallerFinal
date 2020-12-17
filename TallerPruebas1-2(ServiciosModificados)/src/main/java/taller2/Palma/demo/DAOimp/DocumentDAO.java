@@ -29,41 +29,36 @@ public class DocumentDAO implements IDocumentDAO {
 //	public DocumentDAO(EntityManager manager) {
 //		entityManager=manager;
 //	}
-	@Transactional
+
 	@Override
 	public void delete(Documentt entity) {
 		entityManager.remove(entity);
 		
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public List<Documentt> findAll() {
 		String jpql= "Select a from Documentt a";
 		return entityManager.createQuery(jpql).getResultList();
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public Documentt findById(long docId) {
 		return entityManager.find(Documentt.class, docId);
 	}
 	
 
-	@Transactional
 	@Override
 	public void save(Documentt entity) {
 		entityManager.persist(entity);
 	}
 
-	@Transactional
 	@Override
 	public void update(Documentt entity) {
 		entityManager.merge(entity);
 		
 	}
 
-	@Transactional(readOnly=true)
 	@Override
 	public List<Documentt> findByDocName(String docName) {
 		String jpql= "SELECT d FROM Documentt d WHERE d.docName = :name";
@@ -72,7 +67,6 @@ public class DocumentDAO implements IDocumentDAO {
 		return q.getResultList();
 	}
 
-	@Transactional(readOnly=true)
 	public List<Documentt> findByType(Documenttype id){
 		String jpql= "SELECT d FROM Documentt d WHERE d.documenttype = :id";
 		Query q= entityManager.createQuery(jpql);
@@ -80,9 +74,8 @@ public class DocumentDAO implements IDocumentDAO {
 		return q.getResultList();
 	}
 	
-	@Transactional(readOnly=true)
 	public List<Documentt> findByDateRangeDoc(Date first, Date end){
-		String jpql="SELECT a FROM Docstateinstance a WHERE (a.docstatinsStartdate BETWEEN ?1 AND ?2)"
+		String jpql="SELECT a FROM DocstateinstanceWHERE (a.docstatinsStartdate BETWEEN ?1 AND ?2)"
 				+" AND (a.docstatinsEnddate BETWEEN ?1 AND ?2)";
 		
 		Query q= entityManager.createQuery(jpql);
@@ -91,7 +84,6 @@ public class DocumentDAO implements IDocumentDAO {
 		return q.getResultList();
 	}
 
-	@Transactional(readOnly=true)
 	public List<Documentt> findByPerson(Person person){
 		String jpql="SELECT d FROM Documentt d WHERE d.person = :pers";
 		Query q= entityManager.createQuery(jpql);

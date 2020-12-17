@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -40,10 +42,12 @@ public class Documenttype implements Serializable {
 
 	//bi-directional many-to-one association to Documentstate
 	@OneToMany(mappedBy="documenttype")
+	@JsonIgnore
 	private List<Documentstate> documentstates;
 
 	//bi-directional many-to-one association to Documentt
 	@OneToMany(mappedBy="documenttype")
+	@JsonIgnore
 	private List<Documentt> documentts;
 
 	public Documenttype() {

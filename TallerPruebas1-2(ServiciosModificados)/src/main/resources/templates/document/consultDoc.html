@@ -45,8 +45,6 @@
 									th:selected="${doc.person=per}"></option>
 							</select> <span th:if="${#fields.hasErrors('person')}"
 								th:errors="*{person}" class="text-danger"></span>
-								<a th:href="@{/person/view/{id}(id=${doc.person.persId})}"
-									class="btn btn-primary"><i class="fas fa-eye ml-2"></i></a>
 						</div>
 						<div class="form-group col-md-6">
 							<h3 class="my-5">Document Instances</h3>
