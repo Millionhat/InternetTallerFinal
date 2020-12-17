@@ -41,12 +41,12 @@ public class Documenttype implements Serializable {
 	private BigDecimal instInstId;
 
 	//bi-directional many-to-one association to Documentstate
-	@OneToMany(mappedBy="documenttype")
+	@OneToMany(mappedBy="documenttype",cascade=CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Documentstate> documentstates;
 
 	//bi-directional many-to-one association to Documentt
-	@OneToMany(mappedBy="documenttype")
+	@OneToMany(mappedBy="documenttype",cascade=CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Documentt> documentts;
 
